@@ -66,7 +66,7 @@ class ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           centerTitle: true,
           elevation: 0,
@@ -88,13 +88,11 @@ class ContactUsState extends State<ContactUs> {
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        body: CustomScrollView(
-          slivers: [
+        body: CustomScrollView(slivers: [
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 return Column(
-                  
                   children: [
                     const SizedBox(height: 50),
                     Container(
@@ -103,10 +101,9 @@ class ContactUsState extends State<ContactUs> {
                         aboutTitle,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                          color: Colors.white
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
+                            color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -115,17 +112,22 @@ class ContactUsState extends State<ContactUs> {
                       child: Text(
                         about,
                         textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(fontSize: 20, fontFamily: 'Lato', color: mainColor,),
-                            
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Lato',
+                          color: mainColor,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
                         aboutus,
-                        style:
-                            const TextStyle(fontSize: 20, fontFamily: 'Lato',color: Colors.white,),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Lato',
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Container(
@@ -218,11 +220,13 @@ class ContactUsState extends State<ContactUs> {
                     Text(_selectedIndexName,
                         style: const TextStyle(fontSize: 25, color: mainColor)),
                     Text(_selectedIndexPost,
-                        style: const TextStyle(fontSize: 20, color: Colors.white)),
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white)),
                     Container(
                         padding: const EdgeInsets.all(20.0),
                         child: const Text("Frågor?",
-                            style: TextStyle(fontSize: 15, color: Colors.white))),
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.white))),
                     LayoutBuilder(builder: (context, constraints) {
                       if (_selectedIndexMail == "") {
                         return const SizedBox.shrink();

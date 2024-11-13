@@ -237,7 +237,7 @@ class _TestFrameViewer extends State<TestFrame> {
               future: readEventsPreMTDFut(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return Text(snapshot.data[0].title);
+                  return Text("Something went wrong!");
                 } else if (snapshot.hasData) {
                   var eventsData = snapshot.data!;
                   var eventsDates = eventsData

@@ -9,55 +9,103 @@ import 'package:mtd_app/models/companies_firebase.dart';
 import 'package:mtd_app/mainpage/category/eventscreen.dart';
 import 'package:intl/intl.dart';
 
-class EventsPreMTD {
+// class EventsPreMTD {
+//   final String title;
+//   final String time;
+//   final String date;
+//   final String description;
+//   Timestamp sorttime;
+//   String descLong;
+//   String image;
+//   String url;
+//   String urlNative;
+//   String linkText;
+
+//   EventsPreMTD({
+//     required this.title,
+//     this.time = "",
+//     this.date = "",
+//     this.description = "",
+//     required this.sorttime,
+//     this.descLong = "",
+//     this.image = "",
+//     this.url = "",
+//     this.urlNative = "",
+//     this.linkText = "",
+//   });
+
+//   Map<String, dynamic> toJson() => {
+//         'title': title,
+//         'time': time,
+//         'date': date,
+//         'description': description,
+//         'sorttime': sorttime,
+//         'descLong': descLong,
+//         'image': image,
+//         'url': url,
+//         'urlNative': urlNative,
+//         'linkText': linkText,
+//       };
+
+//   static EventsPreMTD fromJson(Map<String, dynamic> json) => EventsPreMTD(
+//         title: json['title'],
+//         time: json['time'],
+//         date: json['date'],
+//         description: json['description'],
+//         sorttime: json['sorttime'],
+//         descLong: json['descLong'],
+//         image: json['image'],
+//         url: json['url'],
+//         urlNative: json['urlNative'],
+//         linkText: json['linkText'],
+//       );
+// }
+
+class Schedule {
   final String title;
   final String time;
-  final String date;
-  final String description;
-  Timestamp sorttime;
+  final Timestamp date;
+  final String desc;
   String descLong;
-  String image;
-  String url;
-  String urlNative;
-  String linkText;
+  // String image;
+  // String url;
+  // String urlNative;
+  // String linkText;
 
-  EventsPreMTD({
+  Schedule({
     required this.title,
     this.time = "",
-    this.date = "",
-    this.description = "",
-    required this.sorttime,
+    required this.date,
+    this.desc = "",
     this.descLong = "",
-    this.image = "",
-    this.url = "",
-    this.urlNative = "",
-    this.linkText = "",
+    // this.image = "",
+    // this.url = "",
+    // this.urlNative = "",
+    // this.linkText = "",
   });
 
   Map<String, dynamic> toJson() => {
         'title': title,
         'time': time,
         'date': date,
-        'description': description,
-        'sorttime': sorttime,
+        'desc': desc,
         'descLong': descLong,
-        'image': image,
-        'url': url,
-        'urlNative': urlNative,
-        'linkText': linkText,
+        // 'image': image,
+        // 'url': url,
+        // 'urlNative': urlNative,
+        // 'linkText': linkText,
       };
 
-  static EventsPreMTD fromJson(Map<String, dynamic> json) => EventsPreMTD(
+  static Schedule fromJson(Map<String, dynamic> json) => Schedule(
         title: json['title'],
         time: json['time'],
         date: json['date'],
-        description: json['description'],
-        sorttime: json['sorttime'],
+        desc: json['description'],
         descLong: json['descLong'],
-        image: json['image'],
-        url: json['url'],
-        urlNative: json['urlNative'],
-        linkText: json['linkText'],
+        // image: json['image'],
+        // url: json['url'],
+        // urlNative: json['urlNative'],
+        // linkText: json['linkText'],
       );
 }
 
@@ -68,26 +116,47 @@ Stream<List<Company>> readCompanyWelcome1() => FirebaseFirestore.instance
     .map((snapshot) =>
         snapshot.docs.map((doc) => Company.fromJson(doc.data())).toList());
 
-Future<List<EventsPreMTD>> readEventsMTDFut() async {
+Future<List<Schedule>> readEventsFut() async {
   var notifs = await FirebaseFirestore.instance
-      .collection("Events_preMTD2023")
-      .where("isMTD", isEqualTo: true)
-      .orderBy("sorttime")
+      .collection("Schedule_2024")
+      .orderBy("title")
       .get();
 
-  return List<EventsPreMTD>.from(
-      notifs.docs.map((doc) => EventsPreMTD.fromJson(doc.data())).toList());
+  for (var doc in notifs.docs) {
+    print(doc.data());
+  }
+
+  return List<Schedule>.from(
+      notifs.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
 }
 
-Future<List<EventsPreMTD>> readEventsPreMTDFut() async {
-  var notifs = await FirebaseFirestore.instance
-      .collection("Events_preMTD2023")
-      .orderBy("sorttime")
-      .get();
+// Stream<List<Schedule>> readSchedule() => FirebaseFirestore.instance
+//     .collection("Schedule_2024")
+//     .orderBy("date")
+//     .snapshots()
+//     .map((snapshot) =>
+//         snapshot.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
 
-  return List<EventsPreMTD>.from(
-      notifs.docs.map((doc) => EventsPreMTD.fromJson(doc.data())).toList());
-}
+// Future<List<EventsPreMTD>> readEventsMTDFut() async {
+//   var notifs = await FirebaseFirestore.instance
+//       .collection("Events_preMTD2023")
+//       .where("isMTD", isEqualTo: true)
+//       .orderBy("sorttime")
+//       .get();
+
+//   return List<EventsPreMTD>.from(
+//       notifs.docs.map((doc) => EventsPreMTD.fromJson(doc.data())).toList());
+// }
+
+// Future<List<EventsPreMTD>> readEventsPreMTDFut() async {
+//   var notifs = await FirebaseFirestore.instance
+//       .collection("Events_preMTD2023")
+//       .orderBy("sorttime")
+//       .get();
+
+//   return List<EventsPreMTD>.from(
+//       notifs.docs.map((doc) => EventsPreMTD.fromJson(doc.data())).toList());
+// }
 
 class TestFrame extends StatefulWidget {
   const TestFrame({Key? key}) : super(key: key);
@@ -134,7 +203,7 @@ class _TestFrameViewer extends State<TestFrame> {
                         stream: readCompanyWelcome1(),
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
-                            return const Text('Something went wrong!');
+                            return Text('Something went wrong!');
                           } else if (snapshot.hasData) {
                             var companies = snapshot.data!;
                             companies.shuffle();
@@ -233,148 +302,158 @@ class _TestFrameViewer extends State<TestFrame> {
           ),
           Flexible(
             // FutureBuilder to fetch and display the list of events
-            child: FutureBuilder<List<EventsPreMTD>>(
-              future: readEventsPreMTDFut(),
+            child: FutureBuilder<List<Schedule>>(
+              future: readEventsFut(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return Text("Something went wrong!");
-                } else if (snapshot.hasData) {
-                  var eventsData = snapshot.data!;
-                  var eventsDates = eventsData
-                      .map((element) => element.date)
-                      .toSet()
-                      .toList();
-
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: eventsData.length,
-                    itemBuilder: (context, index) {
-                      final currentEvent = eventsData[index];
-                      DateTime todayDate = DateTime.now();
-                      String formattedDate =
-                          DateFormat('d MMM').format(todayDate);
-
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EventScreen(
-                                title: currentEvent.title,
-                                time: currentEvent.time,
-                                date: currentEvent.date,
-                                description: currentEvent.description,
-                                descLong: currentEvent.descLong,
-                                image: currentEvent.image,
-                                url: currentEvent.url,
-                                urlNative: currentEvent.urlNative,
-                                linkText: currentEvent.linkText,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            LayoutBuilder(
-                              builder: (context, constraints) {
-                                if (eventsData[index].date == formattedDate) {
-                                  if (index != 0 &&
-                                      eventsData[index].date ==
-                                          eventsData[index - 1].date) {
-                                    return const Text(' ');
-                                  }
-
-                                  return Container(
-                                    margin: const EdgeInsets.only(
-                                      top: 4,
-                                      left: 32,
-                                      bottom: 5,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          currentEvent.date,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                                return const SizedBox.shrink();
-                              },
-                            ),
-                            LayoutBuilder(
-                              builder: (context, constraints) {
-                                if (eventsData[index].date == formattedDate) {
-                                  return Container(
-                                    width: 500,
-                                    padding: const EdgeInsets.all(10),
-                                    margin: const EdgeInsets.only(
-                                        top: 4, left: 30, right: 30, bottom: 4),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          const Color.fromARGB(255, 39, 56, 72),
-                                      borderRadius: BorderRadius.circular(13),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color:
-                                              const Color.fromARGB(255, 0, 0, 0)
-                                                  .withOpacity(0.3),
-                                          spreadRadius: 1,
-                                          blurRadius: 6,
-                                          offset: const Offset(3, 5),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 5),
-                                          child: Text(
-                                            currentEvent.title,
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              color: mainColor,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          currentEvent.description,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Text(
-                                          currentEvent.time,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else {
-                                  return const SizedBox.shrink();
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                  // If there is an error, display a text widget with an error message
+                  return Text(
+                    "Something went wrong! ${snapshot.error}",
+                    style: const TextStyle(color: Colors.white),
                   );
-                } else {
-                  return const Text('Loading...');
                 }
+                if (!snapshot.hasData) {
+                  // If there is no data, display a circular progress indicator
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                var eventsData = snapshot.data!;
+                return Text(
+                  eventsData.length.toString(),
+                  style: const TextStyle(color: Colors.white),
+                );
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: eventsData.length,
+                  itemBuilder: (context, index) {
+                    final currentEvent = eventsData[index];
+                    DateTime todayDate = DateTime.now();
+                    String formattedDate =
+                        DateFormat('d MMM').format(todayDate);
+
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EventScreen(
+                              title: currentEvent.title,
+                              time: currentEvent.time,
+                              date: DateFormat('d MMM')
+                                  .format(currentEvent.date.toDate()),
+                              // description: currentEvent.description,
+                              descLong: currentEvent.descLong,
+                              // image: currentEvent.image,
+                              // url: currentEvent.url,
+                              // urlNative: currentEvent.urlNative,
+                              // linkText: currentEvent.linkText,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (eventsData[index].date == formattedDate) {
+                                if (index != 0 &&
+                                    eventsData[index].date ==
+                                        eventsData[index - 1].date) {
+                                  return const Text(' ');
+                                }
+
+                                return Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 4,
+                                    left: 32,
+                                    bottom: 5,
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        DateFormat('d MMM')
+                                            .format(currentEvent.date.toDate()),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          ),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (eventsData[index].date == formattedDate) {
+                                return Container(
+                                  width: 500,
+                                  padding: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.only(
+                                      top: 4, left: 30, right: 30, bottom: 4),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(255, 39, 56, 72),
+                                    borderRadius: BorderRadius.circular(13),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0)
+                                                .withOpacity(0.3),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(3, 5),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5),
+                                        child: Text(
+                                          currentEvent.title,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            color: mainColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      // Text(
+                                      //   currentEvent.description,
+                                      //   style: const TextStyle(
+                                      //     color: Colors.white,
+                                      //   ),
+                                      // ),
+                                      Text(
+                                        currentEvent.time,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ),

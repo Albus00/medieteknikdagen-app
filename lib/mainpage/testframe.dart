@@ -327,6 +327,8 @@ class _TestFrameViewer extends State<TestFrame> {
                   itemCount: eventsData.length,
                   itemBuilder: (context, index) {
                     final currentEvent = eventsData[index];
+                    String formattedEventDate =
+                        DateFormat('d MMM').format(currentEvent.date.toDate());
                     DateTime todayDate = DateTime.now();
                     String formattedDate =
                         DateFormat('d MMM').format(todayDate);
@@ -354,11 +356,10 @@ class _TestFrameViewer extends State<TestFrame> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // LayoutBuilder to display the date of the event
                           LayoutBuilder(
                             builder: (context, constraints) {
-                              if (DateFormat('d MMM').format(
-                                      eventsData[index].date.toDate()) ==
-                                  formattedDate) {
+                              if (formattedEventDate == formattedDate) {
                                 if (index != 0 &&
                                     eventsData[index].date ==
                                         eventsData[index - 1].date) {
@@ -376,8 +377,7 @@ class _TestFrameViewer extends State<TestFrame> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        DateFormat('d MMM')
-                                            .format(currentEvent.date.toDate()),
+                                        formattedEventDate,
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -390,9 +390,10 @@ class _TestFrameViewer extends State<TestFrame> {
                               return const SizedBox.shrink();
                             },
                           ),
+                          // LayoutBuilder to display the event details
                           LayoutBuilder(
                             builder: (context, constraints) {
-                              if (eventsData[index].date == formattedDate) {
+                              if (formattedEventDate == formattedDate) {
                                 return Container(
                                   width: 500,
                                   padding: const EdgeInsets.all(10),

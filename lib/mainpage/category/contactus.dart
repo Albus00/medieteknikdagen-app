@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../icons/custom_app_icons.dart';
 
 class ContactUs extends StatefulWidget {
-  const ContactUs({Key? key}) : super(key: key);
+  const ContactUs({super.key});
 
   @override
   State<ContactUs> createState() => ContactUsState();

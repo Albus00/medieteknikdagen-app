@@ -5,7 +5,7 @@ import 'package:mtd_app/style/colors.dart';
 import '../icons/custom_app_icons.dart';
 
 class Companies extends StatelessWidget {
-  const Companies({Key? key}) : super(key: key);
+  const Companies({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

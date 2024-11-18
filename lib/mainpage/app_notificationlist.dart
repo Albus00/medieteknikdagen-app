@@ -73,7 +73,7 @@ Widget buildNotification(Notification notification) => Container(
     );
 
 class AppMountListView extends StatefulWidget {
-  const AppMountListView({Key? key}) : super(key: key);
+  const AppMountListView({super.key});
 
   @override
   State<AppMountListView> createState() => _AppMountListViewState();

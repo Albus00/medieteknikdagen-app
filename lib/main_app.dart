@@ -22,11 +22,8 @@ import 'mainpage/category/contactus.dart';
 //   MaterialPageRoute(builder: (_) => const MapMap()),
 // ];
 
-
-
-
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+  const MyStatefulWidget({super.key});
 
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
@@ -68,7 +65,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       //TestFrame(),
       Quiz(),
     ]), */
-    const Column(children:[
+    const Column(children: [
       //TestFrame(),
       PostFeed(),
     ]),
@@ -77,7 +74,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   void initState() {
-
     //NOTIFICATION
     final firebaseMessaging = FCM();
 
@@ -248,7 +244,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               //   ),
               //   label: '',
               // ),
-              
+
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.event,

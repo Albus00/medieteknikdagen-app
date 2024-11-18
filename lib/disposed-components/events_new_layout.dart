@@ -148,7 +148,7 @@ Future<List> readEvents_preMTD_fut() async {
 // }
 
 class Event2 extends StatefulWidget {
-  const Event2({Key? key}) : super(key: key);
+  const Event2({super.key});
 
   @override
   State<Event2> createState() => _EventState2();

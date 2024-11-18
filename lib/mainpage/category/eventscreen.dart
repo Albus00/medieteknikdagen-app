@@ -18,7 +18,7 @@ class EventScreen extends StatelessWidget {
   String linkText;
 
   EventScreen({
-    Key? key,
+    super.key,
     required this.title,
     this.description = '',
     this.descLong = '',
@@ -28,7 +28,7 @@ class EventScreen extends StatelessWidget {
     this.url = '',
     this.urlNative = "",
     this.linkText = "",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,138 +56,143 @@ class EventScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
-      child: Container(
-        constraints: const BoxConstraints(minHeight: 400, maxHeight: 1000),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 39, 56, 72),
-          borderRadius: BorderRadius.circular(13),
-          boxShadow:  [
-            BoxShadow(
-              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 6,
-              offset: const Offset(3, 5)),
-          ],
-          //color: mainColor,
-        ),
-        alignment: Alignment.topCenter,
-        padding: const EdgeInsets.all(10.0),
-        margin: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, 
-        children: [
-          Center(
-            child: Container(
-              margin: const EdgeInsets.all(15.0),
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 40, color: mainColor),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 400, maxHeight: 1000),
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 39, 56, 72),
+            borderRadius: BorderRadius.circular(13),
+            boxShadow: [
+              BoxShadow(
+                  color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 6,
+                  offset: const Offset(3, 5)),
+            ],
+            //color: mainColor,
+          ),
+          alignment: Alignment.topCenter,
+          padding: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(20),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Center(
+              child: Container(
+                margin: const EdgeInsets.all(15.0),
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 40, color: mainColor),
+                ),
               ),
             ),
-          ),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 14, color: Colors.white),
-          ),
-          LayoutBuilder(builder: (context, constraints) {
-            if (date == "") {
-              return Center(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10.0, left: 20, right: 20),
-                  child: Text(
-                    time,
-                    style: const TextStyle(fontSize: 15, color: Colors.white),
-                  ),
-                ),
-              );
-            } else {
-              return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin:
-                          const EdgeInsets.only(top: 10.0, left: 20, right: 20),
-                      child: Text(
-                        date,
-                        style: const TextStyle(fontSize: 15, color: Colors.white),
-                      ),
+            Text(
+              description,
+              style: const TextStyle(fontSize: 14, color: Colors.white),
+            ),
+            LayoutBuilder(builder: (context, constraints) {
+              if (date == "") {
+                return Center(
+                  child: Container(
+                    margin:
+                        const EdgeInsets.only(top: 10.0, left: 20, right: 20),
+                    child: Text(
+                      time,
+                      style: const TextStyle(fontSize: 15, color: Colors.white),
                     ),
-                    Container(
-                      margin:
-                          const EdgeInsets.only(top: 10.0, left: 20, right: 20),
-                      child: Text(
-                        time,
-                        style: const TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                    ),
-                  ]);
-            }
-          }),
-          LayoutBuilder(builder: (context, constraints) {
-            if (image == "") {
-              return const SizedBox.shrink();
-            } else {
-              return Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                alignment: Alignment.topCenter,
-                child: AspectRatio(
-                  aspectRatio: 1.5,
-                  child: Image(
-                    image: CachedNetworkImageProvider(image),
                   ),
-                ),
-              );
-            }
-          }),
-          Flexible(
+                );
+              } else {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 10.0, left: 20, right: 20),
+                        child: Text(
+                          date,
+                          style: const TextStyle(
+                              fontSize: 15, color: Colors.white),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 10.0, left: 20, right: 20),
+                        child: Text(
+                          time,
+                          style: const TextStyle(
+                              fontSize: 15, color: Colors.white),
+                        ),
+                      ),
+                    ]);
+              }
+            }),
+            LayoutBuilder(builder: (context, constraints) {
+              if (image == "") {
+                return const SizedBox.shrink();
+              } else {
+                return Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  alignment: Alignment.topCenter,
+                  child: AspectRatio(
+                    aspectRatio: 1.5,
+                    child: Image(
+                      image: CachedNetworkImageProvider(image),
+                    ),
+                  ),
+                );
+              }
+            }),
+            Flexible(
               child: LayoutBuilder(builder: (context, constraints) {
                 if (descLong == "") {
                   return const SizedBox.shrink();
                 } else {
                   return Container(
-                      //color: Colors.blue,
-                      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: Text(
-                        descLong,
-                        textAlign: TextAlign.left,
-                        style:
-                          const TextStyle(fontSize: 20, fontFamily: 'Lato', color: Colors.white),
-                      ),
+                    //color: Colors.blue,
+                    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Text(
+                      descLong,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Lato',
+                          color: Colors.white),
+                    ),
                   );
                 }
               }),
             ),
-          //Expanded(
-          //  child: SingleChildScrollView(
-          //    child: Container(
-          //      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-          //      child: Text(
-          //        descLong,
-          //        style: const TextStyle(fontSize: 18, fontFamily: 'Lato', color: Colors.white),
-          //      ),
-          //    ),
-          //  ),
-          //),
-          LayoutBuilder(builder: (context, constraints) {
-            if (linkText == "") {
-              return const SizedBox.shrink();
-            } else {
-              return Container(
-                padding: const EdgeInsets.all(20.0),
-                child: InkWell(
-                    child: Text(
-                      linkText,
-                      style: const TextStyle(
-                          fontSize: 20, color: Colors.blue, fontFamily: 'Lato'),
-                    ),
-                    onTap: () => _launchUrl(url, urlNative)),
-              );
+            //Expanded(
+            //  child: SingleChildScrollView(
+            //    child: Container(
+            //      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+            //      child: Text(
+            //        descLong,
+            //        style: const TextStyle(fontSize: 18, fontFamily: 'Lato', color: Colors.white),
+            //      ),
+            //    ),
+            //  ),
+            //),
+            LayoutBuilder(builder: (context, constraints) {
+              if (linkText == "") {
+                return const SizedBox.shrink();
+              } else {
+                return Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: InkWell(
+                      child: Text(
+                        linkText,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.blue,
+                            fontFamily: 'Lato'),
+                      ),
+                      onTap: () => _launchUrl(url, urlNative)),
+                );
+              }
             }
-          }
-              // Testpurpose for linking
+                // Testpurpose for linking
+                ),
+          ]),
         ),
-        ]),
-      ),
       ),
     );
   }

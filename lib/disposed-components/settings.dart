@@ -3,7 +3,7 @@ import 'package:mtd_app/icons/custom_app_icons.dart';
 import '../style/colors.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {

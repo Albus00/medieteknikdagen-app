@@ -4,7 +4,7 @@ import 'package:mtd_app/style/colors.dart';
 import '../../icons/custom_app_icons.dart';
 
 class AboutUs extends StatelessWidget {
-  const AboutUs({Key? key}) : super(key: key);
+  const AboutUs({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

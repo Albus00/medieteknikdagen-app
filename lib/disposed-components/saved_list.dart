@@ -5,7 +5,7 @@ import '../models/category_model.dart';
 import '../style/colors.dart';
 
 class SavedList extends StatelessWidget {
-  const SavedList({Key? key}) : super(key: key);
+  const SavedList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,8 @@ class SavedList extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 //Text(
-                                  //companyItems[i].name,
-                                  // style: const TextStyle(color: Color(0x00000000)),
+                                //companyItems[i].name,
+                                // style: const TextStyle(color: Color(0x00000000)),
                                 //),
                                 Icon(
                                   Icons.favorite,

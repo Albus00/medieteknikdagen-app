@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mtd_app/style/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,9 +38,8 @@ Stream<List<SvarRebus>> readSvar() => FirebaseFirestore.instance
     .collection("Rebus")
     .orderBy("order")
     .snapshots()
-    .map((snapshot) => snapshot.docs
-        .map((doc) => SvarRebus.fromJson(doc.data()))
-        .toList());
+    .map((snapshot) =>
+        snapshot.docs.map((doc) => SvarRebus.fromJson(doc.data())).toList());
 
 Future<List> readSvarFut() async {
   var notifs = await FirebaseFirestore.instance
@@ -49,21 +47,29 @@ Future<List> readSvarFut() async {
       .orderBy("order")
       .get();
 
-      return List<SvarRebus>.from(
+  return List<SvarRebus>.from(
       notifs.docs.map((doc) => SvarRebus.fromJson(doc.data())).toList());
 }
 
 class Quiz extends StatefulWidget {
-  const Quiz({Key? key}) : super(key: key);
+  const Quiz({super.key});
 
   @override
   State<Quiz> createState() => _QuizState();
 }
 
-
-
 class _QuizState extends State<Quiz> {
-  late List<bool> codeDone = [false, false, false, false, false, false, false, false, false];
+  late List<bool> codeDone = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
   final int listLength = 9;
 
   @override
@@ -86,7 +92,6 @@ class _QuizState extends State<Quiz> {
       await prefs.setBool('bool_$i', codeDone[i]);
     }
   }
-
 
   final TextEditingController _searchController1 = TextEditingController();
   final TextEditingController _searchController2 = TextEditingController();
@@ -122,429 +127,392 @@ class _QuizState extends State<Quiz> {
 //  }
 //  setState(() {});
 //}
-  
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
+        child: Column(children: [
+      const SizedBox(
+        width: 500,
+        child: Padding(
+          padding: EdgeInsets.only(left: 34.0, bottom: 15),
+          child: Text(
+            'Rebus',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 40,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-              const SizedBox(
-                width: 500,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 34.0, bottom: 15),
-                    child: Text(
-                      'Rebus',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 40,
-                        color: Colors.white,
-                      ),                      
-                    ),
-                  ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  
-                  Flexible(
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0),//(left: 34.5),
-                      child: Container(
-                        width: 55,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 56, 70, 83),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Column(children: [
-                          TextField(
-                            focusNode: field1,
-                            controller: _searchController1,
-                            onChanged: (value) {
-                              //-----
-                              if(value.isNotEmpty && int.tryParse(value) != null){
-                                FocusScope.of(context).requestFocus(field2);
-                              }
-                              else if(value.isNotEmpty){
-                                //print('inne i else if');
-                                FocusScope.of(context).requestFocus(field2);
-                              }
-                              else{
-                                
-                                isEmpty1 = value.isEmpty;
-                                setState(() {
-                                  searchText1 = value;
-                                });
-                              }
-                              //-----
-                            },
-                            onEditingComplete: () {
-                              // Check if the entered text is not empty and is a number
-                              if (_searchController1.text.isNotEmpty && int.tryParse(_searchController1.text) != null) {
-                                FocusScope.of(context).requestFocus(field2);
-                                setState(() {
-                                  searchText1 = _searchController1.text;
-                                });
-                              } else {
-                                // If the entered text is empty or not a number, move to the previous input box (field1)
-                                FocusScope.of(context).requestFocus(field4);
-                                setState(() {
-                                  searchText1 = _searchController1.text;
-                                });
-                              }
-                            },
-                            decoration: InputDecoration(
-                              //labelText: "Search",
-                              border: InputBorder.none,
-                              hoverColor: Colors.grey[200],
-                              
-                              contentPadding: const EdgeInsets.only(left: 15.0)
-                            ),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                            )
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0),//(left: 34.5),
-                      child: Container(
-                        width: 55,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 56, 70, 83),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Column(children: [
-                          TextField(
-                            focusNode: field2,
-                            controller: _searchController2,
-                            onChanged: (value) {
-                              //print(value.isNotEmpty);
-                              //print(value.isEmpty);
-                              //-----
-                              if(value.isNotEmpty && int.tryParse(value) != null){
-                                FocusScope.of(context).requestFocus(field3);
-                              }
-                              else if(value.isNotEmpty){
-                                //print('inne i else if');
-                                FocusScope.of(context).requestFocus(field3);
-                              }
-                              else{
-                                FocusScope.of(context).requestFocus(field1);
-                                isEmpty2 = value.isEmpty;
-                                setState(() {
-                                  searchText2 = value;
-                                });
-                              }
-                              //-----
-                            },
-                            onEditingComplete: () {
-                              // Check if the entered text is not empty and is a number
-                              if (_searchController2.text.isNotEmpty && int.tryParse(_searchController2.text) != null) {
-                                FocusScope.of(context).requestFocus(field3);
-                                setState(() {
-                                  searchText2 = _searchController2.text;
-                                });
-                              } else {
-                                // If the entered text is empty or not a number, move to the previous input box (field1)
-                                FocusScope.of(context).requestFocus(field1);
-                                setState(() {
-                                  searchText2 = _searchController2.text;
-                                });
-                              }
-                            },
-                            decoration: InputDecoration(
-                              //labelText: "Search",
-                              border: InputBorder.none,
-                              hoverColor: Colors.grey[200],
-                              
-                              contentPadding: const EdgeInsets.only(left: 15.0)
-                            ),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                            ),
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0),//(left: 34.5),
-                      child: Container(
-                        width: 55,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 56, 70, 83),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Column(children: [
-                          TextField(
-                            focusNode: field3,
-                            controller: _searchController3,
-                            onChanged: (value) {
-                              //-----
-                              if(value.isNotEmpty && int.tryParse(value) != null){
-                                FocusScope.of(context).requestFocus(field4);
-                                //print('inne4');
-                              }
-                              else if(value.isNotEmpty){
-                                //print('inne i else if');
-                                FocusScope.of(context).requestFocus(field4);
-                              }
-                              else{
-                                //print('hej');
-                                FocusScope.of(context).requestFocus(field2);
-                                isEmpty3 = value.isEmpty;
-                                setState(() {
-                                  searchText3 = value;
-                                });
-                              }
-                              //-----
-                            },
-                            onEditingComplete: () {
-                              //print('inne3');
-                              // Check if the entered text is not empty and is a number
-                              if (_searchController3.text.isNotEmpty && int.tryParse(_searchController3.text) != null) {
-                                FocusScope.of(context).requestFocus(field4);
-                                //print('inne2');
-                                setState(() {
-                                  searchText3 = _searchController3.text;
-                                });
-                              } else {
-                                // If the entered text is empty or not a number, move to the previous input box (field1)
-                                //print('inne');
-                                FocusScope.of(context).requestFocus(field2);
-                                setState(() {
-                                  searchText3 = _searchController3.text;
-                                });
-                              }
-                            },
-                            decoration: InputDecoration(
-                              //labelText: "Search",
-                              border: InputBorder.none,
-                              hoverColor: Colors.grey[200],
-                              
-                              contentPadding: const EdgeInsets.only(left: 15.0)
-                            ),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                            )
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0),//(left: 34.5),
-                      child: Container(
-                        width: 55,
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 56, 70, 83),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Column(children: [
-                          TextField(
-                            focusNode: field4,
-                            controller: _searchController4,
-                            onChanged: (value) {
-                              //-----
-                              if(value.isNotEmpty && int.tryParse(value) != null){
-                                FocusScope.of(context).requestFocus(field1);
-                              }
-                              else if(value.isNotEmpty){
-                                //print('inne i else if');
-                                FocusScope.of(context).requestFocus(field1);
-                              }
-                              else{
-                                FocusScope.of(context).requestFocus(field3);
-                                isEmpty4 = value.isEmpty;
-                                setState(() {
-                                  searchText4 = value;
-                                });
-                              }
-                              //-----
-                            },
-                            onEditingComplete: () {
-                              // Check if the entered text is not empty and is a number
-                              if (_searchController4.text.isNotEmpty && int.tryParse(_searchController4.text) != null) {
-                                FocusScope.of(context).requestFocus(field1);
-                                setState(() {
-                                  searchText4 = _searchController4.text;
-                                });
-                              } else {
-                                // If the entered text is empty or not a number, move to the previous input box (field1)
-                                FocusScope.of(context).requestFocus(field3);
-                                setState(() {
-                                  searchText4 = _searchController4.text;
-                                });
-                              }
-                            },
-                            decoration: InputDecoration(
-                              //labelText: "Search",
-                              border: InputBorder.none,
-                              hoverColor: Colors.grey[200],
-                              
-                              contentPadding: const EdgeInsets.only(left: 15.0)
-                            ),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                            )
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: TextButton(
-                  
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(
-                      const Size(326.0,50.0),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0))), // Adjust the radius as needed
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(mainColor),
-                  ),
-                  onPressed: () {
-                    if(!isEmpty1 && !isEmpty2 && !isEmpty3 && !isEmpty4){
-                      setState(() {
-                        combinedText = searchText1 + searchText2 + searchText3 + searchText4;
-                        //codeDone[0] = true;
-                      });
-                      
-                      _searchController1.clear();
-                      _searchController2.clear();
-                      _searchController3.clear();
-                      _searchController4.clear();
-                    }
-                    else{
-              
-                    }
-                  },
-                  
-                  child: const Text('Lös in'),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0), //(left: 34.5),
+              child: Container(
+                width: 55,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 56, 70, 83),
+                  borderRadius: BorderRadius.circular(15),
                 ),
+                child: Column(children: [
+                  TextField(
+                      focusNode: field1,
+                      controller: _searchController1,
+                      onChanged: (value) {
+                        //-----
+                        if (value.isNotEmpty && int.tryParse(value) != null) {
+                          FocusScope.of(context).requestFocus(field2);
+                        } else if (value.isNotEmpty) {
+                          //print('inne i else if');
+                          FocusScope.of(context).requestFocus(field2);
+                        } else {
+                          isEmpty1 = value.isEmpty;
+                          setState(() {
+                            searchText1 = value;
+                          });
+                        }
+                        //-----
+                      },
+                      onEditingComplete: () {
+                        // Check if the entered text is not empty and is a number
+                        if (_searchController1.text.isNotEmpty &&
+                            int.tryParse(_searchController1.text) != null) {
+                          FocusScope.of(context).requestFocus(field2);
+                          setState(() {
+                            searchText1 = _searchController1.text;
+                          });
+                        } else {
+                          // If the entered text is empty or not a number, move to the previous input box (field1)
+                          FocusScope.of(context).requestFocus(field4);
+                          setState(() {
+                            searchText1 = _searchController1.text;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                          //labelText: "Search",
+                          border: InputBorder.none,
+                          hoverColor: Colors.grey[200],
+                          contentPadding: const EdgeInsets.only(left: 15.0)),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      )),
+                ]),
               ),
-              Expanded(
-                child: FutureBuilder<List>(
-                  future: readSvarFut(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text(
-                          'Something went wrong!   '); //${snapshot.error}
-                    } else if (snapshot.hasData) {
-                      var order = snapshot.data!;
-                      var eventsData = snapshot.data!;
+            ),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0), //(left: 34.5),
+              child: Container(
+                width: 55,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 56, 70, 83),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(children: [
+                  TextField(
+                    focusNode: field2,
+                    controller: _searchController2,
+                    onChanged: (value) {
+                      //print(value.isNotEmpty);
+                      //print(value.isEmpty);
+                      //-----
+                      if (value.isNotEmpty && int.tryParse(value) != null) {
+                        FocusScope.of(context).requestFocus(field3);
+                      } else if (value.isNotEmpty) {
+                        //print('inne i else if');
+                        FocusScope.of(context).requestFocus(field3);
+                      } else {
+                        FocusScope.of(context).requestFocus(field1);
+                        isEmpty2 = value.isEmpty;
+                        setState(() {
+                          searchText2 = value;
+                        });
+                      }
+                      //-----
+                    },
+                    onEditingComplete: () {
+                      // Check if the entered text is not empty and is a number
+                      if (_searchController2.text.isNotEmpty &&
+                          int.tryParse(_searchController2.text) != null) {
+                        FocusScope.of(context).requestFocus(field3);
+                        setState(() {
+                          searchText2 = _searchController2.text;
+                        });
+                      } else {
+                        // If the entered text is empty or not a number, move to the previous input box (field1)
+                        FocusScope.of(context).requestFocus(field1);
+                        setState(() {
+                          searchText2 = _searchController2.text;
+                        });
+                      }
+                    },
+                    decoration: InputDecoration(
+                        //labelText: "Search",
+                        border: InputBorder.none,
+                        hoverColor: Colors.grey[200],
+                        contentPadding: const EdgeInsets.only(left: 15.0)),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0), //(left: 34.5),
+              child: Container(
+                width: 55,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 56, 70, 83),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(children: [
+                  TextField(
+                      focusNode: field3,
+                      controller: _searchController3,
+                      onChanged: (value) {
+                        //-----
+                        if (value.isNotEmpty && int.tryParse(value) != null) {
+                          FocusScope.of(context).requestFocus(field4);
+                          //print('inne4');
+                        } else if (value.isNotEmpty) {
+                          //print('inne i else if');
+                          FocusScope.of(context).requestFocus(field4);
+                        } else {
+                          //print('hej');
+                          FocusScope.of(context).requestFocus(field2);
+                          isEmpty3 = value.isEmpty;
+                          setState(() {
+                            searchText3 = value;
+                          });
+                        }
+                        //-----
+                      },
+                      onEditingComplete: () {
+                        //print('inne3');
+                        // Check if the entered text is not empty and is a number
+                        if (_searchController3.text.isNotEmpty &&
+                            int.tryParse(_searchController3.text) != null) {
+                          FocusScope.of(context).requestFocus(field4);
+                          //print('inne2');
+                          setState(() {
+                            searchText3 = _searchController3.text;
+                          });
+                        } else {
+                          // If the entered text is empty or not a number, move to the previous input box (field1)
+                          //print('inne');
+                          FocusScope.of(context).requestFocus(field2);
+                          setState(() {
+                            searchText3 = _searchController3.text;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                          //labelText: "Search",
+                          border: InputBorder.none,
+                          hoverColor: Colors.grey[200],
+                          contentPadding: const EdgeInsets.only(left: 15.0)),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      )),
+                ]),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0), //(left: 34.5),
+              child: Container(
+                width: 55,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 56, 70, 83),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(children: [
+                  TextField(
+                      focusNode: field4,
+                      controller: _searchController4,
+                      onChanged: (value) {
+                        //-----
+                        if (value.isNotEmpty && int.tryParse(value) != null) {
+                          FocusScope.of(context).requestFocus(field1);
+                        } else if (value.isNotEmpty) {
+                          //print('inne i else if');
+                          FocusScope.of(context).requestFocus(field1);
+                        } else {
+                          FocusScope.of(context).requestFocus(field3);
+                          isEmpty4 = value.isEmpty;
+                          setState(() {
+                            searchText4 = value;
+                          });
+                        }
+                        //-----
+                      },
+                      onEditingComplete: () {
+                        // Check if the entered text is not empty and is a number
+                        if (_searchController4.text.isNotEmpty &&
+                            int.tryParse(_searchController4.text) != null) {
+                          FocusScope.of(context).requestFocus(field1);
+                          setState(() {
+                            searchText4 = _searchController4.text;
+                          });
+                        } else {
+                          // If the entered text is empty or not a number, move to the previous input box (field1)
+                          FocusScope.of(context).requestFocus(field3);
+                          setState(() {
+                            searchText4 = _searchController4.text;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                          //labelText: "Search",
+                          border: InputBorder.none,
+                          hoverColor: Colors.grey[200],
+                          contentPadding: const EdgeInsets.only(left: 15.0)),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      )),
+                ]),
+              ),
+            ),
+          ),
+        ],
+      ),
+      Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: TextButton(
+          style: ButtonStyle(
+            minimumSize: WidgetStateProperty.all<Size>(
+              const Size(326.0, 50.0),
+            ),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        15.0))), // Adjust the radius as needed
+            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+            backgroundColor: WidgetStateProperty.all<Color>(mainColor),
+          ),
+          onPressed: () {
+            if (!isEmpty1 && !isEmpty2 && !isEmpty3 && !isEmpty4) {
+              setState(() {
+                combinedText =
+                    searchText1 + searchText2 + searchText3 + searchText4;
+                //codeDone[0] = true;
+              });
 
-                      order = order
-                        .map((element) {
-                          return element;
-                        })
-                        .toSet()
-                        .toList();
+              _searchController1.clear();
+              _searchController2.clear();
+              _searchController3.clear();
+              _searchController4.clear();
+            } else {}
+          },
+          child: const Text('Lös in'),
+        ),
+      ),
+      Expanded(
+          child: FutureBuilder<List>(
+              future: readSvarFut(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Text(
+                      'Something went wrong!   '); //${snapshot.error}
+                } else if (snapshot.hasData) {
+                  var order = snapshot.data!;
+                  var eventsData = snapshot.data!;
 
-                        return ScrollShadow(
-                          color: backgroundColor,
-                          child: GridView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            padding: const EdgeInsets.all(20.0),
-                            gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                  order = order
+                      .map((element) {
+                        return element;
+                      })
+                      .toSet()
+                      .toList();
+
+                  return ScrollShadow(
+                      color: backgroundColor,
+                      child: GridView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(20.0),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: 200,
                                 childAspectRatio: 3 / 2,
                                 crossAxisSpacing: 20,
                                 mainAxisSpacing: 20),
-                            itemCount: eventsData.length,
-                            itemBuilder: (context, index) {
-                              final currentSvar = eventsData[index];
+                        itemCount: eventsData.length,
+                        itemBuilder: (context, index) {
+                          final currentSvar = eventsData[index];
 //
-                            return GestureDetector(
-                              child: LayoutBuilder(builder: (context, constraints) {
+                          return GestureDetector(child: LayoutBuilder(
+                                  builder: (context, constraints) {
                             if (currentSvar.image == "") {
                               return Container(
                                   alignment: Alignment.center,
                                   //  color: Colors.grey.withOpacity(0.2),
                                   child: Text(currentSvar.order,
                                       style: const TextStyle(fontSize: 12)));
-                            } else if (currentSvar.code == combinedText){
-                              
+                            } else if (currentSvar.code == combinedText) {
                               codeDone[int.parse(currentSvar.order)] = true;
                               saveBoolList();
-                              
+
                               //print(codeDone);
-                              return Container(                               
-                                
-                                decoration: BoxDecoration(
+                              return Container(
+                                  decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                       currentSvar.image),
                                   fit: BoxFit.cover,
                                 ),
                               ));
-                            }
-                            else if(codeDone[int.parse(currentSvar.order)] == true){
+                            } else if (codeDone[int.parse(currentSvar.order)] ==
+                                true) {
                               return Container(
-                                decoration: BoxDecoration(
-                                  
+                                  decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                       currentSvar.image),
-                                   fit: BoxFit.cover,
+                                  fit: BoxFit.cover,
                                 ),
                               ));
-                            }
-                            else if(currentSvar.order != ""){
+                            } else if (currentSvar.order != "") {
                               int temp = int.parse(currentSvar.order) + 1;
                               return Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   temp.toString(),
-                                  style: const TextStyle(color: Colors.white,fontSize: 40),
-                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 40),
+                                ),
                               );
-                            }
-                            else{
-                              return const Text(
-                                  'hej',
-                                  style:TextStyle(color: Colors.white)
-                              );
+                            } else {
+                              return const Text('hej',
+                                  style: TextStyle(color: Colors.white));
                             }
                           })
 //
-                            );
-                              
-                          },
-                        ));
-                    }
-                    else{
-                      return const Text('Loading...');
-                    }
-                  }
-                )
-              )
-        ]
-      )
-    );
-}
+                              );
+                        },
+                      ));
+                } else {
+                  return const Text('Loading...');
+                }
+              }))
+    ]));
+  }
 }

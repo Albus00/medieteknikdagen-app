@@ -14,7 +14,7 @@ class NotificationScreen extends StatelessWidget {
   final String urlNative;
 
   const NotificationScreen({
-    Key? key,
+    super.key,
     this.image = "",
     required this.title,
     required this.description,
@@ -22,7 +22,7 @@ class NotificationScreen extends StatelessWidget {
     this.linktitle = '',
     this.url = '',
     this.urlNative = '',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +55,12 @@ class NotificationScreen extends StatelessWidget {
           //border: Border.all(color: mainColor, width: 2),
           borderRadius: BorderRadius.circular(10),
           color: const Color.fromARGB(255, 39, 56, 72),
-          boxShadow:  [
+          boxShadow: [
             BoxShadow(
-              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 6,
-              offset: const Offset(3, 5)),
+                color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: const Offset(3, 5)),
           ],
         ),
         alignment: Alignment.topCenter,
@@ -101,7 +101,8 @@ class NotificationScreen extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Text(
                     description,
-                    style: const TextStyle(fontSize: 18, fontFamily: 'Lato', color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 18, fontFamily: 'Lato', color: Colors.white),
                   ),
                 ),
               ),
@@ -125,8 +126,7 @@ class NotificationScreen extends StatelessWidget {
                       onTap: () => _launchUrl(url, urlNative)),
                 );
               }
-            }
-            )
+            })
           ],
         ),
       ),

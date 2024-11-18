@@ -32,7 +32,7 @@ Future<List> readCompanySearchFut() async {
 }
 
 class GridViewer extends StatefulWidget {
-  const GridViewer({Key? key}) : super(key: key);
+  const GridViewer({super.key});
 
   @override
   State<GridViewer> createState() => _GridViewerState();
@@ -82,7 +82,6 @@ class _GridViewerState extends State<GridViewer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(left: 4.0),
@@ -102,8 +101,8 @@ class _GridViewerState extends State<GridViewer> {
                     ),
                     onPressed: () {
                       Future.delayed(Duration.zero, () {
-                        Navigator.of(context)
-                            .push((MaterialPageRoute(builder: (_) => const MapMassan())));
+                        Navigator.of(context).push((MaterialPageRoute(
+                            builder: (_) => const MapMassan())));
                       });
                     },
                   ),
@@ -195,8 +194,10 @@ class _GridViewerState extends State<GridViewer> {
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 2.0, right: 5.0),
-                      padding: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                      margin: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 2.0, right: 5.0),
+                      padding: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: _containerColor1,
                         borderRadius: BorderRadius.circular(10),
@@ -222,8 +223,10 @@ class _GridViewerState extends State<GridViewer> {
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                      margin: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                      padding: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: _containerColor2,
                         borderRadius: BorderRadius.circular(10),
@@ -248,8 +251,10 @@ class _GridViewerState extends State<GridViewer> {
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                      margin: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                      padding: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: _containerColor3,
                         borderRadius: BorderRadius.circular(10),
@@ -273,8 +278,10 @@ class _GridViewerState extends State<GridViewer> {
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                      margin: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                      padding: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: _containerColor4,
                         borderRadius: BorderRadius.circular(10),
@@ -299,8 +306,10 @@ class _GridViewerState extends State<GridViewer> {
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                      margin: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                      padding: const EdgeInsets.only(
+                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: _containerColor5,
                         borderRadius: BorderRadius.circular(10),
@@ -395,8 +404,7 @@ class _GridViewerState extends State<GridViewer> {
                         itemBuilder: (context, index) {
                           final currentComp = companyss[index];
 
-                          return GestureDetector(
-                            onTap: () {
+                          return GestureDetector(onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -412,15 +420,15 @@ class _GridViewerState extends State<GridViewer> {
                                 ),
                               ),
                             );
-                          }, 
-                          child:
+                          }, child:
                               LayoutBuilder(builder: (context, constraints) {
                             if (currentComp.image == "") {
                               return Container(
                                   alignment: Alignment.center,
                                   //  color: Colors.grey.withOpacity(0.2),
                                   child: Text(currentComp.name,
-                                      style: const TextStyle(fontSize: 12, color: Colors.white)));
+                                      style: const TextStyle(
+                                          fontSize: 12, color: Colors.white)));
                             } else {
                               return Container(
                                   decoration: BoxDecoration(

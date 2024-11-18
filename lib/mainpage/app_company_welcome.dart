@@ -12,7 +12,7 @@ Stream<List<Company>> readCompanyWelcome() => FirebaseFirestore.instance
         snapshot.docs.map((doc) => Company.fromJson(doc.data())).toList());
 
 class AppWelcomer extends StatelessWidget {
-  const AppWelcomer({Key? key}) : super(key: key);
+  const AppWelcomer({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -146,7 +146,7 @@ Future<List> readEvents_preMTD_fut() async {
 // }
 
 class Event extends StatefulWidget {
-  const Event({Key? key}) : super(key: key);
+  const Event({super.key});
 
   @override
   State<Event> createState() => _EventState();
@@ -179,9 +179,7 @@ class _EventState extends State<Event> {
         //SizedBox(
         //height: MediaQuery.of(context).size.height * 0.75, // total height
         flex: 8,
-        child: Column(
-          mainAxisSize: MainAxisSize.min, 
-          children: [
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -298,7 +296,6 @@ class _EventState extends State<Event> {
                           itemBuilder: (context, index) {
                             final currentEvent = eventsData[index];
                             //print(index);
-                            
 
                             // List hall = eventsData[index].contains("date");
                             return InkWell(
@@ -319,7 +316,6 @@ class _EventState extends State<Event> {
                                       ),
                                     ),
                                   );
-
                                 },
                                 child: Column(
                                   children: [
@@ -377,38 +373,43 @@ class _EventState extends State<Event> {
                                     //     return const SizedBox.shrink();
                                     //   }
                                     // }),
-                                      
-                                      LayoutBuilder(builder: (context, constraints){
+
+                                    LayoutBuilder(
+                                      builder: (context, constraints) {
                                         //var result = lastEvent.date.compareTo(currentEvent.date);
-                                        if(index != 0 && eventsData[index].date == eventsData[index-1].date){
+                                        if (index != 0 &&
+                                            eventsData[index].date ==
+                                                eventsData[index - 1].date) {
                                           return const Text(' ');
                                         }
-                                        
-                                          //lastDate = currentEvent.date;
-                                          return(Container(
-                                            margin: const EdgeInsets.only(
-                                              top: 4,
-                                              left: 32,
-                                              bottom: 5,
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  currentEvent.date,
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                  ),
+
+                                        //lastDate = currentEvent.date;
+                                        return (Container(
+                                          margin: const EdgeInsets.only(
+                                            top: 4,
+                                            left: 32,
+                                            bottom: 5,
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                currentEvent.date,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
                                                 ),
-                                              ],
-                                            ),
-                                          ));
+                                              ),
+                                            ],
+                                          ),
+                                        ));
                                       },
-                                      ),
-                                    
-                                    Container( //Detta är container för varje objekt
-                                      width: 500,
+                                    ),
+
+                                    Container(
+                                        //Detta är container för varje objekt
+                                        width: 500,
                                         padding: const EdgeInsets.all(10),
                                         margin: const EdgeInsets.only(
                                             top: 4,
@@ -416,14 +417,18 @@ class _EventState extends State<Event> {
                                             right: 30,
                                             bottom: 4),
                                         decoration: BoxDecoration(
-                                          color: const Color.fromARGB(255, 39, 56, 72),
-                                          borderRadius: BorderRadius.circular(13),
-                                          boxShadow:  [
+                                          color: const Color.fromARGB(
+                                              255, 39, 56, 72),
+                                          borderRadius:
+                                              BorderRadius.circular(13),
+                                          boxShadow: [
                                             BoxShadow(
-                                              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                                              spreadRadius: 1,
-                                              blurRadius: 6,
-                                              offset: const Offset(3, 5)),
+                                                color: const Color.fromARGB(
+                                                        255, 0, 0, 0)
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 1,
+                                                blurRadius: 6,
+                                                offset: const Offset(3, 5)),
                                           ],
                                           //color: mainColor,
                                         ),
@@ -432,14 +437,15 @@ class _EventState extends State<Event> {
                                           return Column(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(bottom: 5),
-                                                child: Text( //Här är titeln
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 5),
+                                                child: Text(
+                                                  //Här är titeln
                                                   currentEvent.title,
                                                   style: const TextStyle(
                                                     fontSize: 20,
                                                     color: mainColor,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                               ),
@@ -453,7 +459,6 @@ class _EventState extends State<Event> {
                                                 currentEvent.time,
                                                 style: const TextStyle(
                                                   color: Colors.white,
-
                                                 ),
                                               ),
                                               //Row(

@@ -5,7 +5,7 @@ import '../../icons/custom_app_icons.dart';
 
 //didnt get included in final version
 class MapMassan extends StatelessWidget {
-  const MapMassan({Key? key}) : super(key: key);
+  const MapMassan({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

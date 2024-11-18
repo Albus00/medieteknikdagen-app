@@ -62,51 +62,55 @@ import 'package:intl/intl.dart';
 // }
 
 class Schedule {
-  final String title;
-  final String time;
-  final Timestamp date;
-  final String desc;
+  String title;
+  String time;
+  Timestamp date;
+  String desc;
   String descLong;
-  // String image;
-  // String url;
-  // String urlNative;
-  // String linkText;
+  String image;
+  String url;
+  String urlNative;
+  String linkText;
 
   Schedule({
-    required this.title,
+    this.title = "",
     this.time = "",
     required this.date,
     this.desc = "",
     this.descLong = "",
-    // this.image = "",
-    // this.url = "",
-    // this.urlNative = "",
-    // this.linkText = "",
+    this.image = "",
+    this.url = "",
+    this.urlNative = "",
+    this.linkText = "",
   });
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'time': time,
-        'date': date,
-        'desc': desc,
-        'descLong': descLong,
-        // 'image': image,
-        // 'url': url,
-        // 'urlNative': urlNative,
-        // 'linkText': linkText,
-      };
+  factory Schedule.fromJson(Map<String, dynamic> json) {
+    return Schedule(
+      title: json['title'] ?? "",
+      time: json['time'] ?? "",
+      date: json['date'],
+      desc: json['description'] ?? "",
+      descLong: json['descLong'] ?? "",
+      image: json['image'] ?? "",
+      url: json['url'] ?? "",
+      urlNative: json['urlNative'] ?? "",
+      linkText: json['linkText'] ?? "",
+    );
+  }
 
-  static Schedule fromJson(Map<String, dynamic> json) => Schedule(
-        title: json['title'],
-        time: json['time'],
-        date: json['date'],
-        desc: json['description'],
-        descLong: json['descLong'],
-        // image: json['image'],
-        // url: json['url'],
-        // urlNative: json['urlNative'],
-        // linkText: json['linkText'],
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'time': time,
+      'date': date,
+      'desc': desc,
+      'descLong': descLong,
+      'image': image,
+      'url': url,
+      'urlNative': urlNative,
+      'linkText': linkText,
+    };
+  }
 }
 
 Stream<List<Company>> readCompanyWelcome1() => FirebaseFirestore.instance
@@ -117,17 +121,13 @@ Stream<List<Company>> readCompanyWelcome1() => FirebaseFirestore.instance
         snapshot.docs.map((doc) => Company.fromJson(doc.data())).toList());
 
 Future<List<Schedule>> readEventsFut() async {
-  var notifs = await FirebaseFirestore.instance
+  var events = await FirebaseFirestore.instance
       .collection("Schedule_2024")
       .orderBy("title")
       .get();
 
-  for (var doc in notifs.docs) {
-    print(doc.data());
-  }
-
   return List<Schedule>.from(
-      notifs.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
+      events.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
 }
 
 // Stream<List<Schedule>> readSchedule() => FirebaseFirestore.instance
@@ -159,7 +159,7 @@ Future<List<Schedule>> readEventsFut() async {
 // }
 
 class TestFrame extends StatefulWidget {
-  const TestFrame({Key? key}) : super(key: key);
+  const TestFrame({super.key});
 
   @override
   State<TestFrame> createState() => _TestFrameViewer();
@@ -320,10 +320,6 @@ class _TestFrameViewer extends State<TestFrame> {
                 }
 
                 var eventsData = snapshot.data!;
-                return Text(
-                  eventsData.length.toString(),
-                  style: const TextStyle(color: Colors.white),
-                );
 
                 return ListView.builder(
                   shrinkWrap: true,
@@ -342,11 +338,11 @@ class _TestFrameViewer extends State<TestFrame> {
                           MaterialPageRoute(
                             builder: (context) => EventScreen(
                               title: currentEvent.title,
-                              time: currentEvent.time,
+                              // time: currentEvent.time,
                               date: DateFormat('d MMM')
                                   .format(currentEvent.date.toDate()),
                               // description: currentEvent.description,
-                              descLong: currentEvent.descLong,
+                              // descLong: currentEvent.descLong,
                               // image: currentEvent.image,
                               // url: currentEvent.url,
                               // urlNative: currentEvent.urlNative,
@@ -360,7 +356,9 @@ class _TestFrameViewer extends State<TestFrame> {
                         children: [
                           LayoutBuilder(
                             builder: (context, constraints) {
-                              if (eventsData[index].date == formattedDate) {
+                              if (DateFormat('d MMM').format(
+                                      eventsData[index].date.toDate()) ==
+                                  formattedDate) {
                                 if (index != 0 &&
                                     eventsData[index].date ==
                                         eventsData[index - 1].date) {
@@ -429,12 +427,12 @@ class _TestFrameViewer extends State<TestFrame> {
                                           ),
                                         ),
                                       ),
-                                      // Text(
-                                      //   currentEvent.description,
-                                      //   style: const TextStyle(
-                                      //     color: Colors.white,
-                                      //   ),
-                                      // ),
+                                      Text(
+                                        currentEvent.desc,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                       Text(
                                         currentEvent.time,
                                         style: const TextStyle(

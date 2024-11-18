@@ -15,7 +15,7 @@ List<Route> myRoute = [
 ];
 
 class AppCategoryList extends StatelessWidget {
-  const AppCategoryList({Key? key}) : super(key: key);
+  const AppCategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {

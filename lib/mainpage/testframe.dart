@@ -130,6 +130,7 @@ Future<List<Schedule>> readEventsFut() async {
       events.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
 }
 
+//#region Old schedule and events code
 // Stream<List<Schedule>> readSchedule() => FirebaseFirestore.instance
 //     .collection("Schedule_2024")
 //     .orderBy("date")
@@ -157,6 +158,7 @@ Future<List<Schedule>> readEventsFut() async {
 //   return List<EventsPreMTD>.from(
 //       notifs.docs.map((doc) => EventsPreMTD.fromJson(doc.data())).toList());
 // }
+//#endregion
 
 class TestFrame extends StatefulWidget {
   const TestFrame({super.key});

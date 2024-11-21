@@ -89,7 +89,7 @@ class Schedule {
       title: json['title'] ?? "",
       time: json['time'] ?? "",
       date: json['date'],
-      desc: json['description'] ?? "",
+      desc: json['desc'] ?? "",
       descLong: json['descLong'] ?? "",
       image: json['image'] ?? "",
       url: json['url'] ?? "",
@@ -125,6 +125,8 @@ Future<List<Schedule>> readEventsFut() async {
       .collection("Schedule_2024")
       .orderBy("title")
       .get();
+
+  print(events.docs[0].data());
 
   return List<Schedule>.from(
       events.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
@@ -175,18 +177,13 @@ class _TestFrameViewer extends State<TestFrame> {
       child: Column(
         children: [
           // Container to display the title "Dagens Aktiviteter"
-          Container(
-            padding: const EdgeInsets.only(left: 31.0),
-            color: backgroundColor,
-            width: double.infinity,
-            child: const Text(
-              'Dagens Aktiviteter',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: mainColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+          const Text(
+            'Dagens Aktiviteter',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: mainColor,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
             ),
           ),
           Flexible(
@@ -221,7 +218,6 @@ class _TestFrameViewer extends State<TestFrame> {
                     DateTime todayDate = DateTime.now();
                     String formattedDate =
                         DateFormat('d MMM').format(todayDate);
-
                     return InkWell(
                       onTap: () {
                         Navigator.push(
@@ -229,15 +225,15 @@ class _TestFrameViewer extends State<TestFrame> {
                           MaterialPageRoute(
                             builder: (context) => EventScreen(
                               title: currentEvent.title,
-                              // time: currentEvent.time,
+                              time: currentEvent.time,
                               date: DateFormat('d MMM')
                                   .format(currentEvent.date.toDate()),
-                              // description: currentEvent.description,
-                              // descLong: currentEvent.descLong,
-                              // image: currentEvent.image,
-                              // url: currentEvent.url,
-                              // urlNative: currentEvent.urlNative,
-                              // linkText: currentEvent.linkText,
+                              description: currentEvent.desc,
+                              descLong: currentEvent.descLong,
+                              image: currentEvent.image,
+                              url: currentEvent.url,
+                              urlNative: currentEvent.urlNative,
+                              linkText: currentEvent.linkText,
                             ),
                           ),
                         );
@@ -266,7 +262,8 @@ class _TestFrameViewer extends State<TestFrame> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        formattedEventDate,
+                                        DateFormat('d MMMM')
+                                            .format(currentEvent.date.toDate()),
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -289,8 +286,7 @@ class _TestFrameViewer extends State<TestFrame> {
                                   margin: const EdgeInsets.only(
                                       top: 4, left: 30, right: 30, bottom: 4),
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 39, 56, 72),
+                                    color: backgroundVariantColor,
                                     borderRadius: BorderRadius.circular(13),
                                     boxShadow: [
                                       BoxShadow(
@@ -303,33 +299,57 @@ class _TestFrameViewer extends State<TestFrame> {
                                       ),
                                     ],
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: Text(
-                                          currentEvent.title,
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            color: mainColor,
-                                            fontWeight: FontWeight.bold,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 5),
+                                          child: Text(
+                                            currentEvent.title,
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              color: mainColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Text(
-                                        currentEvent.desc,
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                              color: mainColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10,
+                                                  right: 10,
+                                                  top: 2,
+                                                  bottom: 2),
+                                              child: Text(
+                                                currentEvent.time,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        currentEvent.time,
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            currentEvent.desc,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 );
                               } else {

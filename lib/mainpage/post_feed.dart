@@ -102,7 +102,6 @@ class _PostFeedViewer extends State<PostFeed> {
                           'Something went wrong!  '); //${snapshot.error}
                     } else if (snapshot.hasData) {
                       final notificationsData = snapshot.data!;
-                      bool titleHasRendered = false;
 
                       return ListView(children: [
                         Text(

@@ -248,55 +248,51 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
-        bottomNavigationBar: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.10,
-          child: CupertinoTabBar(
-            //backgroundColor: mainColor,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.search,
-                ),
-              ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(
-              //     Icons.favorite,
-              //     color: Colors.white,
-              //   ),
-              //   label: '',
-              // ),
-
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.event,
-                ),
-              ),
-/*               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.border_color_rounded,
-                ),
-              ), */
-              //BottomNavigationBarItem(
-              //  icon: Icon(
-              //    Icons.favorite,
-              //  ),
-              //),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.article,
-                ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: const Offset(0, -4),
               ),
             ],
-            currentIndex: _selectedIndex,
-            activeColor: Colors.white,
-            inactiveColor: Colors.white70,
-            backgroundColor: mainColor,
-            onTap: _onItemTapped,
+          ),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.10,
+            child: CupertinoTabBar(
+              //backgroundColor: mainColor,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.search,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.event,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.article,
+                  ),
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              activeColor: Colors.white,
+              inactiveColor: Colors.white70,
+              backgroundColor: backgroundVariantColor,
+              onTap: _onItemTapped,
+            ),
           ),
         ));
   }

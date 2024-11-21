@@ -3,102 +3,65 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mtd_app/mainpage/category/eventscreen.dart';
 import 'package:mtd_app/style/colors.dart';
 
 //För MTD
 
-// ignore: camel_case_types
-// class Events_MTD {
-//   final String title;
-//   final String time;
-//   final String date;
-//   final String description;
-
-//   Events_MTD({
-//     required this.title,
-//     required this.time,
-//     required this.date,
-//     required this.description,
-//   });
-
-//   Map<String, dynamic> toJson() => {
-//         'title': title,
-//         'time': time,
-//         'date': date,
-//         'description': description,
-//       };
-
-//   static Events_MTD fromJson(Map<String, dynamic> json) => Events_MTD(
-//         title: json['title'],
-//         time: json['time'],
-//         date: json['date'],
-//         description: json['description'],
-//       );
-// }
-
 //för preMTD
 // ignore: camel_case_types
 class Events_preMTD {
-  final String title;
-  final String time;
-  final String date;
-  final String description;
-  Timestamp sorttime;
-  String desc_long;
+  String title;
+  String time;
+  Timestamp date;
+  String description;
+  String descLong;
   String image;
   String url;
-  String url_native;
-  String link_text;
+  String urlNative;
+  String linkText;
 
   Events_preMTD({
-    required this.title,
+    this.title = "",
     this.time = "",
-    this.date = "",
+    required this.date,
     this.description = "",
-    required this.sorttime,
-    this.desc_long = "",
+    this.descLong = "",
     this.image = "",
     this.url = "",
-    this.url_native = "",
-    this.link_text = "",
+    this.urlNative = "",
+    this.linkText = "",
   });
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'time': time,
-        'date': date,
-        'description': description,
-        'sorttime': sorttime,
-        'desc_long': desc_long,
-        'image': image,
-        'url': url,
-        'url_native': url_native,
-        'link_text': link_text,
-      };
+  factory Events_preMTD.fromJson(Map<String, dynamic> json) {
+    return Events_preMTD(
+      title: json['title'] ?? "",
+      time: json['time'] ?? "",
+      date: json['date'],
+      description: json['description'] ?? "",
+      descLong: json['descLong'] ?? "",
+      image: json['image'] ?? "",
+      url: json['url'] ?? "",
+      urlNative: json['urlNative'] ?? "",
+      linkText: json['linkText'] ?? "",
+    );
+  }
 
-  static Events_preMTD fromJson(Map<String, dynamic> json) => Events_preMTD(
-        title: json['title'],
-        time: json['time'],
-        date: json['date'],
-        description: json['description'],
-        sorttime: json['sorttime'],
-        desc_long: json['desc_long'],
-        image: json['image'],
-        url: json['url'],
-        url_native: json['url_native'],
-        link_text: json['link_text'],
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'time': time,
+      'date': date,
+      'description': description,
+      'descLong': descLong,
+      'image': image,
+      'url': url,
+      'urlNative': urlNative,
+      'linkText': linkText,
+    };
+  }
 }
-
-// Stream<List<Events_preMTD>> readEvents_MTD(final String collec) =>
-//     FirebaseFirestore.instance
-//         .collection(collec)
-//         .orderBy("sorttimes")
-//         .snapshots()
-//         .map((snapshot) => snapshot.docs
-//             .map((doc) => Events_preMTD.fromJson(doc.data()))
-//             .toList());
 
 Stream<List<Events_preMTD>> readEvents_preMTD() => FirebaseFirestore.instance
     .collection("Events_preMTD2023")
@@ -157,7 +120,7 @@ class _EventState extends State<Event> {
   Future<List> setEvent = readEvents_preMTD_fut();
 
   Color mtd_color = backgroundColor;
-  Color premtd_color = Colors.deepOrange;
+  Color premtd_color = mainColor;
 
   String rubrik = "PreMTD";
 
@@ -176,76 +139,8 @@ class _EventState extends State<Event> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        //SizedBox(
-        //height: MediaQuery.of(context).size.height * 0.75, // total height
         flex: 8,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                  child: Container(
-                    width: 150,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: mainColor, width: 2),
-                      borderRadius: BorderRadius.circular(10),
-                      color: premtd_color,
-                    ),
-                    child: const Text(
-                      'PreMTD',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  onTap: () async {
-                    setState(() {
-                      setEvent = readEvents_preMTD_fut();
-                      premtd_color = Colors.deepOrange.withOpacity(1);
-                      mtd_color = backgroundColor;
-                      rubrik = "PreMTD";
-                    });
-                  }),
-              InkWell(
-                  child: Container(
-                    width: 150,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: mainColor, width: 2),
-                      borderRadius: BorderRadius.circular(10),
-                      color: mtd_color,
-                      //color: Colors.black,
-                    ),
-                    child: const Text(
-                      'MTD',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  onTap: () async {
-                    setState(() {
-                      setEvent = readEvents_MTD_fut();
-                      premtd_color = backgroundColor;
-                      mtd_color = Colors.deepOrange.withOpacity(1);
-                      rubrik = "Mässdagen";
-                    });
-                  }),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              rubrik,
-              style: const TextStyle(color: Colors.white, fontSize: 40),
-            ),
-          ),
           Expanded(
               child: FutureBuilder<List>(
                   future: setEvent,
@@ -256,12 +151,6 @@ class _EventState extends State<Event> {
                     } else if (snapshot.hasData) {
                       var eventsDates = snapshot.data!;
                       var eventsData = snapshot.data!;
-                      // Map<int, List> result =
-                      //     groupBy(eventsData, (id) => id.date);
-
-                      // Map<String, List> resrult = eventsData.where((element) {
-                      //   return element.date.toString().contains("28 Nov");
-                      // }) as Map<String, List>;
 
                       eventsDates = eventsDates
                           .map((element) {
@@ -269,259 +158,232 @@ class _EventState extends State<Event> {
                           })
                           .toSet()
                           .toList();
-
-                      // var eventsData1 = eventsData.where((element) {
-                      //   return element.date.toString().contains("28 Nov");
-                      // }).toList();
-
-                      // var eventsData2 = eventsData.where((element) {
-                      //   return element.date.toString().contains("29 Nov");
-                      // }).toList();
-
-                      // var eventsData3 = eventsData.where((element) {
-                      //   return element.date.toString().contains("30 Nov");
-                      // }).toList();
-
-                      // var eventsData4 = eventsData.where((element) {
-                      //   return element.date.toString().contains("30 Nov");
-                      // }).toList();
-
-                      //  print(eventsDates);
-                      //List<String> words = [];
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          itemCount: eventsData.length,
-                          itemBuilder: (context, index) {
-                            final currentEvent = eventsData[index];
-                            //print(index);
-
-                            // List hall = eventsData[index].contains("date");
-                            return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EventScreen(
-                                        title: currentEvent.title,
-                                        time: currentEvent.time,
-                                        date: currentEvent.date,
-                                        description: currentEvent.description,
-                                        descLong: currentEvent.desc_long,
-                                        image: currentEvent.image,
-                                        url: currentEvent.url,
-                                        urlNative: currentEvent.url_native,
-                                        linkText: currentEvent.link_text,
+                      return ListView(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 15),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                  child: Container(
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: mainColor, width: 2),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: premtd_color,
+                                    ),
+                                    child: const Text(
+                                      'PreMTD',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 24,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  );
-                                },
-                                child: Column(
-                                  children: [
-                                    // LayoutBuilder(
-                                    //     builder: (context, constraints) {
-                                    //   var dag = DateTime.parse(currentEvent
-                                    //       .sorttime
-                                    //       .toDate()
-                                    //       .toString());
-                                    //   print(dag.day);
-
-                                    //   if ((currentEvent.date == "28 Nov") &&
-                                    //       checker1 == true) {
-                                    //     checker1 = false;
-                                    //     return Container(
-                                    //         alignment: Alignment.centerLeft,
-                                    //         margin: const EdgeInsets.all(10),
-                                    //         child: const Text("Måndag"));
-                                    //   }
-                                    //   else {
-                                    //     return const SizedBox.shrink();
-                                    //   }
-                                    //    }),
-                                    //      LayoutBuilder(
-                                    //     builder: (context, constraints) {
-                                    //   if ((currentEvent.date == "29 Nov") &&
-                                    //       checker2 == true) {
-                                    //     checker2 = false;
-                                    //     return Container(
-                                    //         alignment: Alignment.centerLeft,
-                                    //         margin: const EdgeInsets.all(10),
-                                    //         child: const Text("Tisdag"));
-                                    //   }
-                                    //    else {
-                                    //     return const SizedBox.shrink();
-                                    //   }}),
-                                    //      LayoutBuilder(
-                                    //     builder: (context, constraints) {
-                                    //   if ((currentEvent.date == "30 Nov") &&
-                                    //       checker3 == true) {
-                                    //     checker3 = false;
-                                    //     return Container(
-                                    //         alignment: Alignment.centerLeft,
-                                    //         margin: const EdgeInsets.all(10),
-                                    //         child: const Text("Tisdag"));
-                                    //   }
-                                    //   if ((currentEvent.date == "1 Dec") &&
-                                    //       checker4 == true) {
-                                    //     checker4 = false;
-                                    //     return Container(
-                                    //         alignment: Alignment.centerLeft,
-                                    //         margin: const EdgeInsets.all(10),
-                                    //         child: const Text("Tisdag"));
-                                    //   } else {
-                                    //     return const SizedBox.shrink();
-                                    //   }
-                                    // }),
-
-                                    LayoutBuilder(
-                                      builder: (context, constraints) {
-                                        //var result = lastEvent.date.compareTo(currentEvent.date);
-                                        if (index != 0 &&
-                                            eventsData[index].date ==
-                                                eventsData[index - 1].date) {
-                                          return const Text(' ');
-                                        }
-
-                                        //lastDate = currentEvent.date;
-                                        return (Container(
-                                          margin: const EdgeInsets.only(
-                                            top: 4,
-                                            left: 32,
-                                            bottom: 5,
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                currentEvent.date,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                                      },
+                                  ),
+                                  onTap: () async {
+                                    setState(() {
+                                      setEvent = readEvents_preMTD_fut();
+                                      premtd_color = mainColor;
+                                      mtd_color = backgroundColor;
+                                      rubrik = "PreMTD";
+                                    });
+                                  }),
+                              InkWell(
+                                  child: Container(
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: mainColor, width: 2),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: mtd_color,
+                                      //color: Colors.black,
                                     ),
-
-                                    Container(
-                                        //Detta är container för varje objekt
-                                        width: 500,
-                                        padding: const EdgeInsets.all(10),
-                                        margin: const EdgeInsets.only(
-                                            top: 4,
-                                            left: 30,
-                                            right: 30,
-                                            bottom: 4),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 39, 56, 72),
-                                          borderRadius:
-                                              BorderRadius.circular(13),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: const Color.fromARGB(
-                                                        255, 0, 0, 0)
-                                                    .withOpacity(0.3),
-                                                spreadRadius: 1,
-                                                blurRadius: 6,
-                                                offset: const Offset(3, 5)),
-                                          ],
-                                          //color: mainColor,
-                                        ),
-                                        child: LayoutBuilder(
-                                            builder: (context, constraints) {
-                                          return Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 5),
-                                                child: Text(
-                                                  //Här är titeln
-                                                  currentEvent.title,
-                                                  style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: mainColor,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
+                                    child: const Text(
+                                      'MTD',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 24,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () async {
+                                    setState(() {
+                                      setEvent = readEvents_MTD_fut();
+                                      premtd_color = backgroundColor;
+                                      mtd_color = mainColor;
+                                      rubrik = "Mässdagen";
+                                    });
+                                  }),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: ListView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: eventsData.length,
+                              itemBuilder: (context, index) {
+                                final currentEvent = eventsData[index];
+                                return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EventScreen(
+                                            title: currentEvent.title,
+                                            time: currentEvent.time,
+                                            date: DateFormat('d MMM').format(
+                                                currentEvent.date.toDate()),
+                                            description:
                                                 currentEvent.description,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                ),
+                                            descLong: currentEvent.descLong,
+                                            image: currentEvent.image,
+                                            url: currentEvent.url,
+                                            urlNative: currentEvent.url,
+                                            linkText: currentEvent.title,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                      children: [
+                                        LayoutBuilder(
+                                          builder: (context, constraints) {
+                                            if (index != 0 &&
+                                                eventsData[index].date ==
+                                                    eventsData[index - 1]
+                                                        .date) {
+                                              return const Text(' ');
+                                            }
+
+                                            return (Container(
+                                              margin: const EdgeInsets.only(
+                                                top: 4,
+                                                left: 32,
+                                                bottom: 5,
                                               ),
-                                              Text(
-                                                currentEvent.time,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                ),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    DateFormat('d MMMM').format(
+                                                        currentEvent.date
+                                                            .toDate()),
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              //Row(
-                                              //  mainAxisAlignment:
-                                              //      MainAxisAlignment.spaceBetween,
-                                              //  children: [
-                                              //    Column(
-                                              //      crossAxisAlignment:
-                                              //          CrossAxisAlignment.start,
-                                              //      children: [
-                                              //        //Text( //Här är daturmet
-                                              //        //  currentEvent.date,
-                                              //        //  style: const TextStyle(
-                                              //        //    fontSize: 20,
-                                              //        //    color: Colors.white,
-                                              //        //    fontWeight:
-                                              //        //        FontWeight.bold,
-                                              //        //  ),
-                                              //        //),
-                                              //        Text( //Här är tiden
-                                              //          currentEvent.time,
-                                              //          style: const TextStyle(
-                                              //            color: Colors.white,
-                                              //            fontSize: 17,
-                                              //          ),
-                                              //        ),
-                                              //      ],
-                                              //    ),
-                                              //    Container(
-                                              //      width: 160,
-                                              //      margin: const EdgeInsets.only(
-                                              //        right: 10,
-                                              //      ),
-                                              //      child: Column(
-                                              //        crossAxisAlignment:
-                                              //            CrossAxisAlignment.start,
-                                              //        children: [
-                                              //          //Text( //Här är titeln
-                                              //          //  currentEvent.title,
-                                              //          //  style: const TextStyle(
-                                              //          //    fontSize: 20,
-                                              //          //    color: Colors.white,
-                                              //          //    fontWeight:
-                                              //          //        FontWeight.bold,
-                                              //          //  ),
-                                              //          //),
-                                              //          Text( //Här är beskrivningen
-                                              //            currentEvent.description,
-                                              //            style: const TextStyle(
-                                              //              color: Colors.white,
-                                              //            ),
-                                              //          ),
-                                              //        ],
-                                              //      ),
-                                              //    ),
-                                              //  ],
-                                              //),
-                                            ],
-                                          );
-                                        })),
-                                  ],
-                                ));
-                          });
+                                            ));
+                                          },
+                                        ),
+                                        Container(
+                                            //Detta är container för varje objekt
+                                            width: double.infinity,
+                                            padding: const EdgeInsets.all(10),
+                                            margin: const EdgeInsets.only(
+                                                top: 4,
+                                                left: 30,
+                                                right: 30,
+                                                bottom: 4),
+                                            decoration: BoxDecoration(
+                                              color: backgroundVariantColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: const Color.fromARGB(
+                                                            255, 0, 0, 0)
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 6,
+                                                    offset: const Offset(3, 5)),
+                                              ],
+                                              //color: mainColor,
+                                            ),
+                                            child: LayoutBuilder(builder:
+                                                (context, constraints) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 5),
+                                                      child: Text(
+                                                        currentEvent.title,
+                                                        style: const TextStyle(
+                                                          fontSize: 20,
+                                                          color: mainColor,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: DecoratedBox(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: mainColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 10,
+                                                                  right: 10,
+                                                                  top: 2,
+                                                                  bottom: 2),
+                                                          child: Text(
+                                                            currentEvent.time,
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        currentEvent
+                                                            .description,
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            })),
+                                      ],
+                                    ));
+                              }),
+                        )
+                      ]);
                     } else {
                       return const Text('Loading...');
                     }

@@ -87,7 +87,6 @@ class _PostFeedViewer extends State<PostFeed> {
         child: Container(
       color: const Color.fromARGB(255, 19, 41, 61),
       width: double.infinity,
-      padding: const EdgeInsets.only(top: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -105,95 +104,95 @@ class _PostFeedViewer extends State<PostFeed> {
                       final notificationsData = snapshot.data!;
                       bool titleHasRendered = false;
 
-                      return ListView.builder(
-                        reverse: false,
-                        scrollDirection: Axis.vertical,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          final currentNotif = notificationsData[index];
-
-                          // if (!titleHasRendered) {
-                          //   titleHasRendered = true;
-                          //   index = 2;
-                          //   return Text(
-                          //     'Nyheter',
-                          //     style: TextStyle(
-                          //       color: Colors.white,
-                          //       fontWeight: FontWeight.w900,
-                          //       fontSize: 30,
-                          //     ),
-                          //   );
-                          // }
-
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NotificationScreen(
-                                    image: currentNotif.image,
-                                    title: currentNotif.title,
-                                    description: currentNotif.description,
-                                    link: currentNotif.link,
-                                    linktitle: currentNotif.linktitle,
-                                    url: currentNotif.url,
-                                    urlNative: currentNotif.urlNative,
-                                    //   sorttime: currentNotif.sorttime,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                alignment: Alignment.topLeft,
-                                padding: const EdgeInsets.all(20),
-                                margin: const EdgeInsets.all(20),
-                                width: 360,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.black12,
-                                        offset: Offset(10, 10),
-                                        blurRadius: 10),
-                                  ],
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                        currentNotif.image),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      currentNotif.title,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                      return ListView(children: [
+                        Text(
+                          'Nyheter',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          reverse: false,
+                          scrollDirection: Axis.vertical,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            final currentNotif = notificationsData[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NotificationScreen(
+                                      image: currentNotif.image,
+                                      title: currentNotif.title,
+                                      description: currentNotif.description,
+                                      link: currentNotif.link,
+                                      linktitle: currentNotif.linktitle,
+                                      url: currentNotif.url,
+                                      urlNative: currentNotif.urlNative,
+                                      //   sorttime: currentNotif.sorttime,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          currentNotif.link,
-                                          style: const TextStyle(
-                                              color: Colors.white),
+                                  ),
+                                );
+                              },
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  alignment: Alignment.topLeft,
+                                  padding: const EdgeInsets.all(20),
+                                  margin: const EdgeInsets.all(20),
+                                  width: 360,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          offset: Offset(10, 10),
+                                          blurRadius: 10),
+                                    ],
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          currentNotif.image),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        currentNotif.title,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            currentNotif.link,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      );
+                            );
+                          },
+                        ),
+                      ]);
                     } else {
                       return const Text('Loading...');
                     }

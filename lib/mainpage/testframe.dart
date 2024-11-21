@@ -113,12 +113,12 @@ class Schedule {
   }
 }
 
-Stream<List<Company>> readCompanyWelcome1() => FirebaseFirestore.instance
-    .collection("Companies")
-    .orderBy("isHuvudsponsor")
-    .snapshots()
-    .map((snapshot) =>
-        snapshot.docs.map((doc) => Company.fromJson(doc.data())).toList());
+// Stream<List<Company>> readCompanyWelcome1() => FirebaseFirestore.instance
+//     .collection("Companies")
+//     .orderBy("isHuvudsponsor")
+//     .snapshots()
+//     .map((snapshot) =>
+//         snapshot.docs.map((doc) => Company.fromJson(doc.data())).toList());
 
 Future<List<Schedule>> readEventsFut() async {
   var events = await FirebaseFirestore.instance
@@ -200,88 +200,88 @@ class _TestFrameViewer extends State<TestFrame> {
                   ),
                   Expanded(
                     child: Center(
-                      // StreamBuilder to fetch and display the list of companies
-                      child: StreamBuilder<List<Company>>(
-                        stream: readCompanyWelcome1(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Something went wrong!');
-                          } else if (snapshot.hasData) {
-                            var companies = snapshot.data!;
-                            companies.shuffle();
+                        // StreamBuilder to fetch and display the list of companies
+                        // child: StreamBuilder<List<Company>>(
+                        //   stream: readCompanyWelcome1(),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.hasError) {
+                        //       return Text('Something went wrong!');
+                        //     } else if (snapshot.hasData) {
+                        //       var companies = snapshot.data!;
+                        //       companies.shuffle();
 
-                            return Center(
-                              // GridView to display the companies in a grid format
-                              child: GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                padding: const EdgeInsets.only(
-                                    left: 30, top: 0, right: 30, bottom: 30),
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 150,
-                                  childAspectRatio: 4 / 2,
-                                  crossAxisSpacing: 20,
-                                  mainAxisSpacing: 20,
-                                ),
-                                itemCount: companies.length,
-                                itemBuilder: (context, index) {
-                                  final currentComp = companies[index];
+                        //       return Center(
+                        //         // GridView to display the companies in a grid format
+                        //         child: GridView.builder(
+                        //           physics: const NeverScrollableScrollPhysics(),
+                        //           padding: const EdgeInsets.only(
+                        //               left: 30, top: 0, right: 30, bottom: 30),
+                        //           gridDelegate:
+                        //               const SliverGridDelegateWithMaxCrossAxisExtent(
+                        //             maxCrossAxisExtent: 150,
+                        //             childAspectRatio: 4 / 2,
+                        //             crossAxisSpacing: 20,
+                        //             mainAxisSpacing: 20,
+                        //           ),
+                        //           itemCount: companies.length,
+                        //           itemBuilder: (context, index) {
+                        //             final currentComp = companies[index];
 
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => CompanyScreen(
-                                            image: currentComp.image,
-                                            name: currentComp.name,
-                                            description:
-                                                currentComp.description,
-                                            hasExjobb: currentComp.hasExjobb,
-                                            hasSommarjobb:
-                                                currentComp.hasSommarjobb,
-                                            hasPraktik: currentComp.hasPraktik,
-                                            hasTrainee: currentComp.hasTrainee,
-                                            hasJobb: currentComp.hasJobb,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Center(
-                                      child: LayoutBuilder(
-                                        builder: (context, constraints) {
-                                          if (currentComp.image == "") {
-                                            return Container(
-                                              alignment: Alignment.center,
-                                              child: const Text(
-                                                "hej",
-                                                style: TextStyle(fontSize: 12),
-                                              ),
-                                            );
-                                          } else {
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image:
-                                                      CachedNetworkImageProvider(
-                                                          currentComp.image),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          } else {
-                            return const Text('Loading...');
-                          }
-                        },
-                      ),
-                    ),
+                        //             return GestureDetector(
+                        //               onTap: () {
+                        //                 Navigator.push(
+                        //                   context,
+                        //                   MaterialPageRoute(
+                        //                     builder: (context) => CompanyScreen(
+                        //                       image: currentComp.image,
+                        //                       name: currentComp.name,
+                        //                       description:
+                        //                           currentComp.description,
+                        //                       hasExjobb: currentComp.hasExjobb,
+                        //                       hasSommarjobb:
+                        //                           currentComp.hasSommarjobb,
+                        //                       hasPraktik: currentComp.hasPraktik,
+                        //                       hasTrainee: currentComp.hasTrainee,
+                        //                       hasJobb: currentComp.hasJobb,
+                        //                     ),
+                        //                   ),
+                        //                 );
+                        //               },
+                        //               child: Center(
+                        //                 child: LayoutBuilder(
+                        //                   builder: (context, constraints) {
+                        //                     if (currentComp.image == "") {
+                        //                       return Container(
+                        //                         alignment: Alignment.center,
+                        //                         child: const Text(
+                        //                           "hej",
+                        //                           style: TextStyle(fontSize: 12),
+                        //                         ),
+                        //                       );
+                        //                     } else {
+                        //                       return Container(
+                        //                         decoration: BoxDecoration(
+                        //                           image: DecorationImage(
+                        //                             image:
+                        //                                 CachedNetworkImageProvider(
+                        //                                     currentComp.image),
+                        //                           ),
+                        //                         ),
+                        //                       );
+                        //                     }
+                        //                   },
+                        //                 ),
+                        //               ),
+                        //             );
+                        //           },
+                        //         ),
+                        //       );
+                        //     } else {
+                        //       return const Text('Loading...');
+                        //     }
+                        //   },
+                        // ),
+                        ),
                   ),
                 ],
               ),

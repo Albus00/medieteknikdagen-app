@@ -91,14 +91,6 @@ class _PostFeedViewer extends State<PostFeed> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'Nyheter',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w900,
-              fontSize: 30,
-            ),
-          ),
           //HÄR ÄR FLÖDET
           Expanded(
               //HERE CHANGE THIS EXPANDED TO CONTAINER, WHEN I TRY IT DOENST WORK
@@ -111,6 +103,7 @@ class _PostFeedViewer extends State<PostFeed> {
                           'Something went wrong!  '); //${snapshot.error}
                     } else if (snapshot.hasData) {
                       final notificationsData = snapshot.data!;
+                      bool titleHasRendered = false;
 
                       return ListView.builder(
                         reverse: false,
@@ -118,6 +111,19 @@ class _PostFeedViewer extends State<PostFeed> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           final currentNotif = notificationsData[index];
+
+                          // if (!titleHasRendered) {
+                          //   titleHasRendered = true;
+                          //   index = 2;
+                          //   return Text(
+                          //     'Nyheter',
+                          //     style: TextStyle(
+                          //       color: Colors.white,
+                          //       fontWeight: FontWeight.w900,
+                          //       fontSize: 30,
+                          //     ),
+                          //   );
+                          // }
 
                           return GestureDetector(
                             onTap: () {

@@ -226,7 +226,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       IconButton(
                         color: Colors.white,
                         icon: const Icon(
-                          Icons.menu_book_rounded,
+                          Icons.supervised_user_circle,
                           size: 35,
                           //color: mainColor,
                         ),

@@ -333,7 +333,7 @@ class _EventState3 extends State<Event3> {
                                         time: currentEvent.time,
                                         date: currentEvent.date,
                                         description: currentEvent.description,
-                                        descLong: currentEvent.desc_long,
+                                        desc_long: currentEvent.desc_long,
                                         image: currentEvent.image,
                                         url: currentEvent.url,
                                         urlNative: currentEvent.url_native,

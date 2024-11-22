@@ -293,7 +293,7 @@ class _EventState2 extends State<Event2> {
                                         time: currentEvent.time,
                                         date: currentEvent.date,
                                         description: currentEvent.description,
-                                        descLong: currentEvent.desc_long,
+                                        desc_long: currentEvent.desc_long,
                                         image: currentEvent.image,
                                         url: currentEvent.url,
                                         urlNative: currentEvent.url_native,

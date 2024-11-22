@@ -8,6 +8,7 @@ import 'package:mtd_app/mainpage/companyscreen.dart';
 import 'package:mtd_app/models/companies_firebase.dart';
 import 'package:mtd_app/mainpage/category/eventscreen.dart';
 import 'package:intl/intl.dart';
+import 'package:mtd_app/models/schedule_model.dart';
 
 // class EventsPreMTD {
 //   final String title;
@@ -61,58 +62,6 @@ import 'package:intl/intl.dart';
 //       );
 // }
 
-class Schedule {
-  String title;
-  String time;
-  Timestamp date;
-  String desc;
-  String descLong;
-  String image;
-  String url;
-  String urlNative;
-  String linkText;
-
-  Schedule({
-    this.title = "",
-    this.time = "",
-    required this.date,
-    this.desc = "",
-    this.descLong = "",
-    this.image = "",
-    this.url = "",
-    this.urlNative = "",
-    this.linkText = "",
-  });
-
-  factory Schedule.fromJson(Map<String, dynamic> json) {
-    return Schedule(
-      title: json['title'] ?? "",
-      time: json['time'] ?? "",
-      date: json['date'],
-      desc: json['desc'] ?? "",
-      descLong: json['descLong'] ?? "",
-      image: json['image'] ?? "",
-      url: json['url'] ?? "",
-      urlNative: json['urlNative'] ?? "",
-      linkText: json['linkText'] ?? "",
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'time': time,
-      'date': date,
-      'desc': desc,
-      'descLong': descLong,
-      'image': image,
-      'url': url,
-      'urlNative': urlNative,
-      'linkText': linkText,
-    };
-  }
-}
-
 // Stream<List<Company>> readCompanyWelcome1() => FirebaseFirestore.instance
 //     .collection("Companies")
 //     .orderBy("isHuvudsponsor")
@@ -125,8 +74,6 @@ Future<List<Schedule>> readEventsFut() async {
       .collection("Schedule_2024")
       .orderBy("title")
       .get();
-
-  print(events.docs[0].data());
 
   return List<Schedule>.from(
       events.docs.map((doc) => Schedule.fromJson(doc.data())).toList());
@@ -228,8 +175,8 @@ class _TestFrameViewer extends State<TestFrame> {
                               time: currentEvent.time,
                               date: DateFormat('d MMM')
                                   .format(currentEvent.date.toDate()),
-                              description: currentEvent.desc,
-                              descLong: currentEvent.descLong,
+                              description: currentEvent.description,
+                              desc_long: currentEvent.desc_long,
                               image: currentEvent.image,
                               url: currentEvent.url,
                               urlNative: currentEvent.urlNative,
@@ -342,7 +289,7 @@ class _TestFrameViewer extends State<TestFrame> {
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            currentEvent.desc,
+                                            currentEvent.description,
                                             style: const TextStyle(
                                               color: Colors.white,
                                             ),

@@ -16,7 +16,7 @@ class Events_preMTD {
   String time;
   Timestamp date;
   String description;
-  String descLong;
+  String desc_long;
   String image;
   String url;
   String urlNative;
@@ -27,7 +27,7 @@ class Events_preMTD {
     this.time = "",
     required this.date,
     this.description = "",
-    this.descLong = "",
+    this.desc_long = "",
     this.image = "",
     this.url = "",
     this.urlNative = "",
@@ -40,7 +40,7 @@ class Events_preMTD {
       time: json['time'] ?? "",
       date: json['date'],
       description: json['description'] ?? "",
-      descLong: json['descLong'] ?? "",
+      desc_long: json['desc_long'] ?? "",
       image: json['image'] ?? "",
       url: json['url'] ?? "",
       urlNative: json['urlNative'] ?? "",
@@ -54,7 +54,7 @@ class Events_preMTD {
       'time': time,
       'date': date,
       'description': description,
-      'descLong': descLong,
+      'desc_long': desc_long,
       'image': image,
       'url': url,
       'urlNative': urlNative,
@@ -244,7 +244,7 @@ class _EventState extends State<Event> {
                                                 currentEvent.date.toDate()),
                                             description:
                                                 currentEvent.description,
-                                            descLong: currentEvent.descLong,
+                                            desc_long: currentEvent.desc_long,
                                             image: currentEvent.image,
                                             url: currentEvent.url,
                                             urlNative: currentEvent.url,

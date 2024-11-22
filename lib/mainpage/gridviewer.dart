@@ -76,265 +76,220 @@ class _GridViewerState extends State<GridViewer> {
     return Expanded(
       flex: 7,
       child: Column(children: [
-        Container(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+        Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 4.0),
+                  Align(
+                    alignment: Alignment.center,
                     child: Text(
                       'Upptäck',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 24,
                         color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.help_outline_outlined,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Future.delayed(Duration.zero, () {
-                        Navigator.of(context).push((MaterialPageRoute(
-                            builder: (_) => const MapMassan())));
-                      });
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(children: [
-                        TextField(
-                          controller: _searchController,
-                          onChanged: (value) {
-                            setState(() {
-                              searchText = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            //labelText: "Search",
-                            border: InputBorder.none,
-                            hintText: "Search",
-                            hoverColor: Colors.grey[200],
-                            prefixIcon:
-                                const Icon(Icons.search, color: Colors.black),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
                           ),
+                          child: Column(children: [
+                            TextField(
+                              controller: _searchController,
+                              onChanged: (value) {
+                                setState(() {
+                                  searchText = value;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                //labelText: "Search",
+                                border: InputBorder.none,
+                                hintText: "Search",
+                                hoverColor: Colors.grey[200],
+                                prefixIcon: const Icon(Icons.search,
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ]),
                         ),
-                      ]),
-                    ),
-                  ),
-                  //Testing for adjusting searchresult
-                  // GestureDetector(
-                  //   child: Container(
-                  //     margin: const EdgeInsets.only(left: 10),
-                  //     width: 50,
-                  //     height: 50,
-                  //     decoration: BoxDecoration(
-                  //       color: mainColor,
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     child: const Icon(
-                  //       Icons.tune,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  //   onTap: () {
-                  //     setState(() {
-                  //       showFilters == false
-                  //           ? showFilters = true
-                  //           : showFilters = false;
-
-                  //       if (showFilters == false) {
-                  //         exjobbSearch = false;
-                  //         _containerColor1 = Colors.white;
-                  //         _textColor1 = mainColor;
-                  //         sommarjobbSearch = false;
-                  //         _containerColor2 = Colors.white;
-                  //         _textColor2 = mainColor;
-                  //         jobbSearch = false;
-                  //         _containerColor3 = Colors.white;
-                  //         _textColor3 = mainColor;
-                  //         praktikSearch = false;
-                  //         _containerColor4 = Colors.white;
-                  //         _textColor4 = mainColor;
-                  //         traineeSearch = false;
-                  //         _containerColor5 = Colors.white;
-                  //         _textColor5 = mainColor;
-                  //       }
-                  //     });
-                  //   },
-                  // )
-                ],
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(left: 30.0, bottom: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 2.0, right: 5.0),
-                      padding: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: _containerColor1,
-                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child:
-                          Text('Exjobb', style: TextStyle(color: _textColor1)),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        exjobbSearch == false
-                            ? exjobbSearch = true
-                            : exjobbSearch = false;
-
-                        _containerColor1 = _containerColor1 == Colors.white
-                            ? mainColor
-                            : Colors.white;
-
-                        _textColor1 =
-                            _textColor1 == mainColor ? Colors.white : mainColor;
-                      });
-                    },
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: _containerColor2,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text('Sommarjobb',
-                          style: TextStyle(color: _textColor2)),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        sommarjobbSearch == false
-                            ? sommarjobbSearch = true
-                            : sommarjobbSearch = false;
-                        _containerColor2 = _containerColor2 == Colors.white
-                            ? mainColor
-                            : Colors.white;
-
-                        _textColor2 =
-                            _textColor2 == mainColor ? Colors.white : mainColor;
-                      });
-                    },
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: _containerColor3,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text('Jobb', style: TextStyle(color: _textColor3)),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        jobbSearch == false
-                            ? jobbSearch = true
-                            : jobbSearch = false;
-                        _containerColor3 = _containerColor3 == Colors.white
-                            ? mainColor
-                            : Colors.white;
-
-                        _textColor3 =
-                            _textColor3 == mainColor ? Colors.white : mainColor;
-                      });
-                    },
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: _containerColor4,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child:
-                          Text('Praktik', style: TextStyle(color: _textColor4)),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        praktikSearch == false
-                            ? praktikSearch = true
-                            : praktikSearch = false;
-                        _containerColor4 = _containerColor4 == Colors.white
-                            ? mainColor
-                            : Colors.white;
-
-                        _textColor4 =
-                            _textColor4 == mainColor ? Colors.white : mainColor;
-                      });
-                    },
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
-                      padding: const EdgeInsets.only(
-                          top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                      decoration: BoxDecoration(
-                        color: _containerColor5,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child:
-                          Text('Trainee', style: TextStyle(color: _textColor5)),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        traineeSearch == false
-                            ? traineeSearch = true
-                            : traineeSearch = false;
-                        _containerColor5 = _containerColor5 == Colors.white
-                            ? mainColor
-                            : Colors.white;
-
-                        _textColor5 =
-                            _textColor5 == mainColor ? Colors.white : mainColor;
-                      });
-                    },
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 2.0, right: 5.0),
+                          padding: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                          decoration: BoxDecoration(
+                            color: _containerColor1,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text('Exjobb',
+                              style: TextStyle(color: _textColor1)),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            exjobbSearch == false
+                                ? exjobbSearch = true
+                                : exjobbSearch = false;
+
+                            _containerColor1 = _containerColor1 == Colors.white
+                                ? mainColor
+                                : Colors.white;
+
+                            _textColor1 = _textColor1 == mainColor
+                                ? Colors.white
+                                : mainColor;
+                          });
+                        },
+                      ),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                          padding: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                          decoration: BoxDecoration(
+                            color: _containerColor2,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text('Sommarjobb',
+                              style: TextStyle(color: _textColor2)),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            sommarjobbSearch == false
+                                ? sommarjobbSearch = true
+                                : sommarjobbSearch = false;
+                            _containerColor2 = _containerColor2 == Colors.white
+                                ? mainColor
+                                : Colors.white;
+
+                            _textColor2 = _textColor2 == mainColor
+                                ? Colors.white
+                                : mainColor;
+                          });
+                        },
+                      ),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                          padding: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                          decoration: BoxDecoration(
+                            color: _containerColor3,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text('Jobb',
+                              style: TextStyle(color: _textColor3)),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            jobbSearch == false
+                                ? jobbSearch = true
+                                : jobbSearch = false;
+                            _containerColor3 = _containerColor3 == Colors.white
+                                ? mainColor
+                                : Colors.white;
+
+                            _textColor3 = _textColor3 == mainColor
+                                ? Colors.white
+                                : mainColor;
+                          });
+                        },
+                      ),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                          padding: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                          decoration: BoxDecoration(
+                            color: _containerColor4,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text('Praktik',
+                              style: TextStyle(color: _textColor4)),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            praktikSearch == false
+                                ? praktikSearch = true
+                                : praktikSearch = false;
+                            _containerColor4 = _containerColor4 == Colors.white
+                                ? mainColor
+                                : Colors.white;
+
+                            _textColor4 = _textColor4 == mainColor
+                                ? Colors.white
+                                : mainColor;
+                          });
+                        },
+                      ),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 3.0, right: 5.0),
+                          padding: const EdgeInsets.only(
+                              top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                          decoration: BoxDecoration(
+                            color: _containerColor5,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text('Trainee',
+                              style: TextStyle(color: _textColor5)),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            traineeSearch == false
+                                ? traineeSearch = true
+                                : traineeSearch = false;
+                            _containerColor5 = _containerColor5 == Colors.white
+                                ? mainColor
+                                : Colors.white;
+
+                            _textColor5 = _textColor5 == mainColor
+                                ? Colors.white
+                                : mainColor;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         Expanded(
           child: FutureBuilder<List>(
@@ -432,6 +387,12 @@ class _GridViewerState extends State<GridViewer> {
                             } else {
                               return Container(
                                   decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      offset: Offset(10, 10),
+                                      blurRadius: 10),
+                                ],
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                       currentComp.image),
@@ -443,7 +404,9 @@ class _GridViewerState extends State<GridViewer> {
                         }),
                   );
                 } else {
-                  return const Text('Loading...');
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
               }),
         ),

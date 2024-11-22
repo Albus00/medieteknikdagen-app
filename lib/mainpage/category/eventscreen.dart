@@ -43,7 +43,7 @@ class EventScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-            constraints: const BoxConstraints(minHeight: 400, maxHeight: 1000),
+            constraints: const BoxConstraints(minHeight: 200),
             decoration: BoxDecoration(
               color: backgroundVariantColor,
               borderRadius: BorderRadius.circular(13),
@@ -73,15 +73,17 @@ class EventScreen extends StatelessWidget {
                 }
               }),
               Container(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 25, right: 25),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Center(
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: Text(
                           title,
-                          style:
-                              const TextStyle(fontSize: 40, color: mainColor),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 36, color: mainColor, height: 1),
                         ),
                       ),
                       Text(
@@ -98,7 +100,7 @@ class EventScreen extends StatelessWidget {
                               child: Text(
                                 time,
                                 style: const TextStyle(
-                                    fontSize: 15, color: Colors.white),
+                                    fontSize: 15, color: mainColor),
                               ),
                             ),
                           );
@@ -112,7 +114,7 @@ class EventScreen extends StatelessWidget {
                                   child: Text(
                                     date,
                                     style: const TextStyle(
-                                        fontSize: 15, color: Colors.white),
+                                        fontSize: 15, color: mainColor),
                                   ),
                                 ),
                                 Container(
@@ -121,7 +123,7 @@ class EventScreen extends StatelessWidget {
                                   child: Text(
                                     time,
                                     style: const TextStyle(
-                                        fontSize: 15, color: Colors.white),
+                                        fontSize: 15, color: mainColor),
                                   ),
                                 ),
                               ]);
@@ -132,17 +134,24 @@ class EventScreen extends StatelessWidget {
                           return const SizedBox.shrink();
                         } else {
                           return Container(
-                            padding: const EdgeInsets.all(20.0),
-                            child: InkWell(
-                                child: Text(
-                                  linkText,
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.blue,
-                                      fontFamily:
-                                          'Lato'), // Ensure 'Lato' font is added in pubspec.yaml
+                            padding: const EdgeInsets.only(top: 10, bottom: 20),
+                            child: ElevatedButton(
+                              onPressed: () => _launchUrl(url, urlNative),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                onTap: () => _launchUrl(url, urlNative)),
+                                shadowColor: Colors.black,
+                                elevation: 5,
+                                foregroundColor: Colors.white,
+                                backgroundColor: mainColor,
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              child: Text(linkText),
+                            ),
                           );
                         }
                       }),

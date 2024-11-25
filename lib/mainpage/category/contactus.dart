@@ -83,11 +83,11 @@ class ContactUsState extends State<ContactUs> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: const Icon(
-                MyFlutterApp.mtd_svart,
-                color: Colors.white,
-                size: 40,
-              ),
+              child: Text("MTD",
+                  style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
             ),
           ),
           actions: const [
@@ -101,18 +101,6 @@ class ContactUsState extends State<ContactUs> {
               (BuildContext context, int index) {
                 return Column(
                   children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        aboutTitle,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Container(
@@ -139,8 +127,7 @@ class ContactUsState extends State<ContactUs> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 20.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Column(
                         children: [
                           Text(
@@ -150,18 +137,18 @@ class ContactUsState extends State<ContactUs> {
                               fontSize: 20,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
-                              color: mainColor,
+                              color: Colors.white,
                             ),
                           ),
                           Text(
-                            "MTD",
+                            "MEDIETEKNIKDAGEN",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                              fontSize: 42,
-                              fontFamily: 'Lato',
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                               color: mainColor,
                             ),
+                            maxLines: 1,
                           ),
                         ],
                       ),
@@ -248,7 +235,10 @@ class ContactUsState extends State<ContactUs> {
                           )),
                     ),
                     Text(_selectedIndexName,
-                        style: const TextStyle(fontSize: 25, color: mainColor)),
+                        style: const TextStyle(
+                            fontSize: 25,
+                            color: mainColor,
+                            fontWeight: FontWeight.bold)),
                     Text(_selectedIndexPost,
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white)),

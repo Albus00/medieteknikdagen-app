@@ -64,21 +64,27 @@ class EventScreen extends StatelessWidget {
                 if (image == "") {
                   return const SizedBox.shrink();
                 } else {
-                  return AspectRatio(
-                    aspectRatio: 1.5,
-                    child: Image(
-                      image: CachedNetworkImageProvider(image),
+                  return ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Image(
+                        image: CachedNetworkImageProvider(image),
+                      ),
                     ),
                   );
                 }
               }),
               Container(
-                padding: const EdgeInsets.only(left: 25, right: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
                         child: Text(
                           title,
                           textAlign: TextAlign.center,
@@ -181,15 +187,4 @@ void _launchUrl(String webUrl, String nativeUrl) async {
   } else {
     //print("can't open Instagram");
   }
-
-  // try {
-  //   launchUrlString("https://www.instagram.com/medieteknikdagen/",
-  //       mode: LaunchMode.externalApplication);
-  //   print("google check");
-
-  //   //await launchUrlString(linkNative, mode: LaunchMode.externalApplication);
-  // } catch (e) {
-  //   print(e);
-  //   await launchUrlString(linkWeb, mode: LaunchMode.platformDefault);
-  // }
 }

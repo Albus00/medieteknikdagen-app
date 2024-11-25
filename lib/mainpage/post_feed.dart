@@ -193,7 +193,9 @@ class _PostFeedViewer extends State<PostFeed> {
                         ),
                       ]);
                     } else {
-                      return const Text('Loading...');
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
                   })),
         ],

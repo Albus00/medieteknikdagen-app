@@ -37,129 +37,121 @@ class NotificationScreen extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: const Icon(
-              MyFlutterApp.mtd_svart,
-              color: Colors.white,
-              size: 40,
-            ),
           ),
         ),
-        actions: const [
-          SizedBox(width: 40, height: 40),
-        ],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Container(
-        constraints: const BoxConstraints(minHeight: 400, maxHeight: 600),
-        decoration: BoxDecoration(
-          //border: Border.all(color: mainColor, width: 2),
-          borderRadius: BorderRadius.circular(10),
-          color: const Color.fromARGB(255, 39, 56, 72),
-          boxShadow: [
-            BoxShadow(
-                color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: const Offset(3, 5)),
-          ],
-        ),
-        alignment: Alignment.topCenter,
-        padding: const EdgeInsets.all(10.0),
-        margin: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(20.0),
-              child: AspectRatio(
-                aspectRatio: 1.5,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Image(
-                    image: CachedNetworkImageProvider(image),
-                  ),
-                ),
-              ),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.contain,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.all(20.0),
-                    child: Text(
-                      title,
-                      style: const TextStyle(fontSize: 40, color: Colors.white),
-                    ),
-                  ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+                top: 200, left: 20, right: 20, bottom: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: backgroundVariantColor.withOpacity(0.9),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 6,
+                  offset: const Offset(3, 5),
                 ),
               ],
             ),
-
-            Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 20),
                   child: Text(
-                    description,
+                    title,
                     style: const TextStyle(
-                        fontSize: 18, fontFamily: 'Lato', color: Colors.white),
+                      fontSize: 40,
+                      color: Colors.white,
+                      height: 1,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-            ),
-            // Testpurpose for linking
-
-            LayoutBuilder(builder: (context, constraints) {
-              if (linktitle == "") {
-                return const SizedBox.shrink();
-              } else {
-                return Container(
-                  padding: const EdgeInsets.all(20.0),
-                  child: InkWell(
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                       child: Text(
-                        linktitle,
+                        description,
                         style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.blue,
-                            fontFamily: 'Lato'),
+                          fontSize: 18,
+                          fontFamily: 'Lato',
+                          color: Colors.white,
+                        ),
                       ),
-                      onTap: () => _launchUrl(url, urlNative)),
-                );
-              }
-            })
-          ],
-        ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    if (linktitle == "") {
+                      return const SizedBox.shrink();
+                    } else {
+                      return ElevatedButton(
+                        onPressed: () => _launchUrl(url, urlNative),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          shadowColor: Colors.black,
+                          elevation: 5,
+                          foregroundColor: Colors.white,
+                          backgroundColor: mainColor,
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text(linktitle),
+                      );
+
+                      // Container(
+                      //   padding: const EdgeInsets.all(20.0),
+                      //   child: InkWell(
+                      //     child: Text(
+                      //       linktitle,
+                      //       style: const TextStyle(
+                      //         fontSize: 20,
+                      //         color: Colors.blue,
+                      //         fontFamily: 'Lato',
+                      //       ),
+                      //     ),
+                      //     onTap: () => _launchUrl(url, urlNative),
+                      //   ),
+                      // );
+                    }
+                  }),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-//Test for linking data
 void _launchUrl(String webUrl, String nativeUrl) async {
-  //var nativeUrl = "instagram://user?username=medieteknikdagen";
-  //var webUrl = "https://www.instagram.com/medieteknikdagen/";
-
   if (await canLaunchUrlString(nativeUrl)) {
     await launchUrlString(nativeUrl, mode: LaunchMode.externalApplication);
-    //print("native");
   } else if (await canLaunchUrlString(webUrl)) {
     await launchUrlString(webUrl, mode: LaunchMode.platformDefault);
-    //print("url");
-  } else {
-    //print("can't open Instagram");
   }
-
-  // try {
-  //   launchUrlString("https://www.instagram.com/medieteknikdagen/",
-  //       mode: LaunchMode.externalApplication);
-  //   print("google check");
-
-  //   //await launchUrlString(linkNative, mode: LaunchMode.externalApplication);
-  // } catch (e) {
-  //   print(e);
-  //   await launchUrlString(linkWeb, mode: LaunchMode.platformDefault);
-  // }
 }
-// DateTime date =
-     //   DateTime.fromMicrosecondsSinceEpoch(sorttime.microsecondsSinceEpoch);
-    //final birthday = DateTime(date.year, date.month, date.day);

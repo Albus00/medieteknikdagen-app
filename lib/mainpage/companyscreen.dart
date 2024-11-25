@@ -57,11 +57,6 @@ class CompanyScreen extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: const Icon(
-              MyFlutterApp.mtd_svart,
-              color: Colors.white,
-              size: 40,
-            ),
           ),
         ),
         actions: const [
@@ -73,7 +68,7 @@ class CompanyScreen extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(minHeight: 400, maxHeight: 1000),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 39, 56, 72),
+            color: backgroundVariantColor,
             borderRadius: BorderRadius.circular(13),
             boxShadow: [
               BoxShadow(

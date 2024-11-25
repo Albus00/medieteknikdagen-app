@@ -204,8 +204,6 @@ class ContactUsState extends State<ContactUs> {
                                     padding: EdgeInsets.only(
                                       top: (diff / carouselRatio2).abs(),
                                       bottom: (diff / carouselRatio2).abs(),
-                                      // left: (diff / carouselRatio).abs(),
-                                      // right: (diff / carouselRatio).abs(),
                                     ),
                                     child: child,
                                   );

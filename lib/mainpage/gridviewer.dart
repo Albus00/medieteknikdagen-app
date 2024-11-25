@@ -380,25 +380,34 @@ class _GridViewerState extends State<GridViewer> {
                             if (currentComp.image == "") {
                               return Container(
                                   alignment: Alignment.center,
-                                  //  color: Colors.grey.withOpacity(0.2),
                                   child: Text(currentComp.name,
                                       style: const TextStyle(
                                           fontSize: 12, color: Colors.white)));
                             } else {
                               return Container(
-                                  decoration: BoxDecoration(
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.black12,
-                                      offset: Offset(10, 10),
-                                      blurRadius: 10),
-                                ],
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      currentComp.image),
-                                  // fit: BoxFit.cover,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: backgroundVariantColor,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black12,
+                                        offset: Offset(10, 10),
+                                        blurRadius: 10),
+                                  ],
                                 ),
-                              ));
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 12.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: CachedNetworkImageProvider(
+                                            currentComp.image),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
                             }
                           }));
                         }),

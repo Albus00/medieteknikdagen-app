@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinite_carousel/infinite_carousel.dart';
 import 'package:mtd_app/models/mtdgruppen.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:mailto/mailto.dart';
 
 import 'package:mtd_app/style/colors.dart';
 
@@ -32,9 +34,9 @@ class ContactUsState extends State<ContactUs> {
   // Maintain current index of carousel
   int _selectedIndex = 0;
 
-  String _selectedIndexName = "Sebastian Lindgren";
-  String _selectedIndexPost = "Projektledare";
-  String _selectedIndexMail = "Projektledare";
+  String _selectedIndexName = mtdgruppen_list[0].name;
+  String _selectedIndexPost = mtdgruppen_list[0].role;
+  String _selectedIndexMail = mtdgruppen_list[0].contac_mail;
 
   // Width of each item
   final double _itemExtent = 150;
@@ -58,11 +60,16 @@ class ContactUsState extends State<ContactUs> {
     return await rootBundle.loadString('assets/MTD_bilder/');
   }
 
+  launcMailto(mail) async {
+    final mailtoLink = Mailto(
+      to: [mail],
+    );
+    await launchUrl(Uri.parse('$mailtoLink'));
+  }
+
   final String aboutTitle = "Medieteknikdagen";
   final String about =
       "Medieteknikdagen är medieteknikstudenternas årliga arbetsmarknadsdag på Linköpings universitet. Vi förenar företag och studenter och skapar kontakter för livet!";
-
-  final String aboutus = "Det är vi som representerar MTD";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,40 +101,69 @@ class ContactUsState extends State<ContactUs> {
               (BuildContext context, int index) {
                 return Column(
                   children: [
-                    const SizedBox(height: 50),
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
+                    Align(
+                      alignment: Alignment.center,
                       child: Text(
                         aboutTitle,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40,
-                            color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Container(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        about,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Lato',
-                          color: mainColor,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        aboutus,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Lato',
+                        style: TextStyle(
                           color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: backgroundVariantColor,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(10, 10),
+                                blurRadius: 10),
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          about,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Det är vi som representerar",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.bold,
+                              color: mainColor,
+                            ),
+                          ),
+                          Text(
+                            "MTD",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 42,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.bold,
+                              color: mainColor,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Container(
@@ -193,12 +229,6 @@ class ContactUsState extends State<ContactUs> {
                                   child: GestureDetector(
                                     onTap: () {
                                       _controller.animateToItem(realIndex);
-
-                                      // ResizeImage(
-
-                                      //     notificationsData[itemIndex].image,
-                                      //     width: 200,
-                                      //     allowUpscaling: true);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -222,29 +252,32 @@ class ContactUsState extends State<ContactUs> {
                     Text(_selectedIndexPost,
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white)),
-                    Container(
-                        padding: const EdgeInsets.all(20.0),
-                        child: const Text("Frågor?",
-                            style:
-                                TextStyle(fontSize: 15, color: Colors.white))),
-                    LayoutBuilder(builder: (context, constraints) {
-                      if (_selectedIndexMail == "") {
-                        return const SizedBox.shrink();
-                      } else {
-                        return Container(
-                          padding: const EdgeInsets.only(bottom: 40),
-                          child: InkWell(
-                              child: const Text(
-                                "Kontakta oss",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color.fromARGB(255, 60, 161, 243),
-                                    fontFamily: 'Lato'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 20.0),
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        if (_selectedIndexMail == "") {
+                          return const SizedBox.shrink();
+                        } else {
+                          return ElevatedButton(
+                            onPressed: () => launcMailto(_selectedIndexMail),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              onTap: () => _launchURL(_selectedIndexMail)),
-                        );
-                      }
-                    }),
+                              shadowColor: Colors.black,
+                              elevation: 5,
+                              foregroundColor: Colors.white,
+                              backgroundColor: mainColor,
+                              textStyle: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text("Kontakta"),
+                          );
+                        }
+                      }),
+                    ),
                   ],
                 );
               },
@@ -255,15 +288,15 @@ class ContactUsState extends State<ContactUs> {
   }
 }
 
-void _launchURL(String selectedMail) async {
-  final Uri params = Uri(
-    scheme: 'mailto',
-    path: selectedMail,
-  );
-  String url = params.toString();
-  if (await canLaunchUrlString(url)) {
-    await launchUrlString(url);
-  } else {
-    //print('Could not launch $url');
-  }
-}
+// void _launchURL(String selectedMail) async {
+//   final Uri params = Uri(
+//     scheme: 'mailto',
+//     path: selectedMail,
+//   );
+//   String url = params.toString();
+//   if (await canLaunchUrlString(url)) {
+//     await launchUrlString(url);
+//   } else {
+//     //print('Could not launch $url');
+//   }
+// }

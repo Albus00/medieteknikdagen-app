@@ -262,7 +262,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ],
           ),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.10,
+            height: MediaQuery.of(context).size.height * 0.09,
             child: CupertinoTabBar(
               //backgroundColor: mainColor,
               items: const <BottomNavigationBarItem>[

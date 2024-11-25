@@ -135,7 +135,7 @@ class _GridViewerState extends State<GridViewer> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     children: [
                       InkWell(

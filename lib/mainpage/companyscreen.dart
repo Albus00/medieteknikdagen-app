@@ -68,7 +68,7 @@ class CompanyScreen extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(minHeight: 400, maxHeight: 1000),
           decoration: BoxDecoration(
-            color: backgroundVariantColor,
+            color: backgroundVariantColor2,
             borderRadius: BorderRadius.circular(13),
             boxShadow: [
               BoxShadow(
@@ -85,7 +85,7 @@ class CompanyScreen extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.center,
                 margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Text(
                   name,
@@ -93,85 +93,81 @@ class CompanyScreen extends StatelessWidget {
                 ),
               ),
               Container(
+                alignment: Alignment.topLeft,
                 padding: const EdgeInsets.only(
                     bottom: 10.0, top: 10.0, left: 17.0, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Wrap(
                   children: [
-                    Row(
-                      children: [
-                        if (hasExjobb == true) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
-                            padding: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                            decoration: BoxDecoration(
-                                color: mainColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Text('Exjobb',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white)),
-                          ),
-                        ],
-                        if (hasSommarjobb == true) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
-                            padding: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                            decoration: BoxDecoration(
-                                color: mainColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Text('Sommarjobb',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white)),
-                          ),
-                        ],
-                        if (hasJobb == true) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
-                            padding: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                            decoration: BoxDecoration(
-                                color: mainColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Text('Jobb',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white)),
-                          ),
-                        ],
-                        if (hasPraktik == true) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
-                            padding: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                            decoration: BoxDecoration(
-                                color: mainColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Text('Praktik',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white)),
-                          ),
-                        ],
-                        if (hasTrainee == true) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
-                            padding: const EdgeInsets.only(
-                                top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
-                            decoration: BoxDecoration(
-                                color: mainColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Text('Trainee',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white)),
-                          ),
-                        ],
-                      ],
-                    ),
+                    if (hasExjobb == true) ...[
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
+                        padding: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                        decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text('Exjobb',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white)),
+                      ),
+                    ],
+                    if (hasSommarjobb == true) ...[
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
+                        padding: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                        decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text('Sommarjobb',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white)),
+                      ),
+                    ],
+                    if (hasJobb == true) ...[
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
+                        padding: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                        decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text('Jobb',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white)),
+                      ),
+                    ],
+                    if (hasPraktik == true) ...[
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
+                        padding: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                        decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text('Praktik',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white)),
+                      ),
+                    ],
+                    if (hasTrainee == true) ...[
+                      Container(
+                        margin: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 3.0, right: 4.0),
+                        padding: const EdgeInsets.only(
+                            top: 3.0, bottom: 3.0, left: 5.0, right: 5.0),
+                        decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text('Trainee',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white)),
+                      ),
+                    ],
                   ],
                 ),
               ),

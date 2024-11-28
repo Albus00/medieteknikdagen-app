@@ -13,10 +13,6 @@ import 'package:mailto/mailto.dart';
 
 import 'package:mtd_app/style/colors.dart';
 
-import 'package:url_launcher/url_launcher_string.dart';
-
-import '../../icons/custom_app_icons.dart';
-
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
 

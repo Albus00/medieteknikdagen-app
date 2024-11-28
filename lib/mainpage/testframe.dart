@@ -1,11 +1,7 @@
 import 'dart:async';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mtd_app/style/colors.dart';
-import '../icons/custom_app_icons.dart';
-import 'package:mtd_app/mainpage/companyscreen.dart';
-import 'package:mtd_app/models/companies_firebase.dart';
 import 'package:mtd_app/mainpage/category/eventscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:mtd_app/models/schedule_model.dart';

@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mtd_app/style/colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../icons/custom_app_icons.dart';
 
 class NotificationScreen extends StatelessWidget {
   final String image;

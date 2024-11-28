@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scroll_shadow/flutter_scroll_shadow.dart';
-import 'package:mtd_app/mainpage/category/map.dart';
 import 'package:mtd_app/mainpage/companyscreen.dart';
 import 'package:mtd_app/models/companies_firebase.dart';
 import 'package:cached_network_image/cached_network_image.dart';

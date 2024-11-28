@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mtd_app/style/colors.dart';
-import '../icons/custom_app_icons.dart';
 
 // ignore: must_be_immutable
 class CompanyScreen extends StatelessWidget {

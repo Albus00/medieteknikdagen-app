@@ -65,7 +65,6 @@ class CompanyScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          constraints: const BoxConstraints(minHeight: 400, maxHeight: 1000),
           decoration: BoxDecoration(
             color: backgroundVariantColor2,
             borderRadius: BorderRadius.circular(13),
@@ -88,7 +87,11 @@ class CompanyScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Text(
                   name,
-                  style: const TextStyle(fontSize: 40, color: mainColor),
+                  style: const TextStyle(
+                    fontSize: 40,
+                    color: mainColor,
+                    height: 1,
+                  ),
                 ),
               ),
               Container(
@@ -170,43 +173,45 @@ class CompanyScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Flexible(
-                child: LayoutBuilder(builder: (context, constraints) {
-                  if (description == "") {
-                    return const SizedBox.shrink();
-                  } else {
-                    return Container(
-                      //color: Colors.blue,
-                      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: Text(
-                        description,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Lato',
-                            color: Colors.white),
-                      ),
-                    );
-                  }
-                }),
+              Column(
+                children: [
+                  LayoutBuilder(builder: (context, constraints) {
+                    if (description == "") {
+                      return const SizedBox.shrink();
+                    } else {
+                      return Container(
+                        //color: Colors.blue,
+                        margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                        child: Text(
+                          description,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Lato',
+                              color: Colors.white),
+                        ),
+                      );
+                    }
+                  }),
+                  LayoutBuilder(builder: (context, constraints) {
+                    if (image == "") {
+                      return const SizedBox.shrink();
+                    } else {
+                      return Container(
+                        //color: Colors.green,
+                        margin: const EdgeInsets.all(20.0),
+                        alignment: Alignment.topCenter,
+                        child: AspectRatio(
+                          aspectRatio: 1.5,
+                          child: Image(
+                            image: CachedNetworkImageProvider(image),
+                          ),
+                        ),
+                      );
+                    }
+                  })
+                ],
               ),
-              LayoutBuilder(builder: (context, constraints) {
-                if (image == "") {
-                  return const SizedBox.shrink();
-                } else {
-                  return Container(
-                    //color: Colors.green,
-                    margin: const EdgeInsets.all(20.0),
-                    alignment: Alignment.topCenter,
-                    child: AspectRatio(
-                      aspectRatio: 1.5,
-                      child: Image(
-                        image: CachedNetworkImageProvider(image),
-                      ),
-                    ),
-                  );
-                }
-              })
             ],
           ),
         ),

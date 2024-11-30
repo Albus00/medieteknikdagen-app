@@ -94,8 +94,10 @@ class EventScreen extends StatelessWidget {
                       ),
                       Text(
                         desc_long,
-                        style:
-                            const TextStyle(fontSize: 14, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lato',
+                            color: Colors.white),
                       ),
                       LayoutBuilder(builder: (context, constraints) {
                         if (date == "") {

@@ -60,8 +60,8 @@ android {
         applicationId "dev.widdyjp.mounts_of_the_world"
         minSdkVersion 21
         targetSdkVersion 34 // Changed from 33
-        versionCode 10 // Abbes version 2
-        versionName '1.4.2' // Abbes version 2
+        versionCode 11 // Abbes version 3
+        versionName '1.4.3' // Abbes version 3
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

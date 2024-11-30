@@ -67,7 +67,7 @@ import 'package:mtd_app/models/schedule_model.dart';
 
 Future<List<Schedule>> readEventsFut() async {
   var events = await FirebaseFirestore.instance
-      .collection("Schedule_2024")
+      .collection("Events_preMTD2023")
       .orderBy("title")
       .get();
 
@@ -129,6 +129,25 @@ class _TestFrameViewer extends State<TestFrame> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(
+              top: 4,
+              left: 32,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat('d MMMM').format(
+                      DateTime.now()), // Placeholder for currentEvent.date
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Flexible(
             // FutureBuilder to fetch and display the list of events
             child: FutureBuilder<List<Schedule>>(
@@ -184,42 +203,8 @@ class _TestFrameViewer extends State<TestFrame> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // LayoutBuilder to display the date of the event
-                          LayoutBuilder(
-                            builder: (context, constraints) {
-                              if (formattedEventDate == formattedDate) {
-                                if (index != 0 &&
-                                    eventsData[index].date ==
-                                        eventsData[index - 1].date) {
-                                  return const Text(' ');
-                                }
-
-                                return Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 4,
-                                    left: 32,
-                                    bottom: 5,
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        DateFormat('d MMMM')
-                                            .format(currentEvent.date.toDate()),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                              return const SizedBox.shrink();
-                            },
-                          ),
                           // LayoutBuilder to display the event details
+                          const SizedBox(height: 2),
                           LayoutBuilder(
                             builder: (context, constraints) {
                               if (formattedEventDate == formattedDate) {
@@ -252,32 +237,36 @@ class _TestFrameViewer extends State<TestFrame> {
                                           child: Text(
                                             currentEvent.title,
                                             style: const TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 22,
                                               color: mainColor,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: DecoratedBox(
-                                            decoration: BoxDecoration(
-                                              color: mainColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10,
-                                                  right: 10,
-                                                  top: 2,
-                                                  bottom: 2),
-                                              child: Text(
-                                                currentEvent.time,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                color: mainColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10,
+                                                    right: 10,
+                                                    top: 2,
+                                                    bottom: 2),
+                                                child: Text(
+                                                  currentEvent.time,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -287,6 +276,7 @@ class _TestFrameViewer extends State<TestFrame> {
                                           child: Text(
                                             currentEvent.description,
                                             style: const TextStyle(
+                                              fontSize: 16,
                                               color: Colors.white,
                                             ),
                                           ),

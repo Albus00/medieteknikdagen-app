@@ -275,12 +275,18 @@ class _EventState extends State<Event> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    DateFormat('d MMMM').format(
-                                                        currentEvent.date
-                                                            .toDate()),
-                                                    style: const TextStyle(
+                                                    rubrik == "PreMTD"
+                                                        ? DateFormat('d MMMM')
+                                                            .format(currentEvent
+                                                                .date
+                                                                .toDate())
+                                                        : "",
+                                                    style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 20,
+                                                      fontSize:
+                                                          rubrik == "PreMTD"
+                                                              ? 20
+                                                              : 0,
                                                     ),
                                                   ),
                                                 ],
@@ -326,40 +332,46 @@ class _EventState extends State<Event> {
                                                       child: Text(
                                                         currentEvent.title,
                                                         style: const TextStyle(
-                                                          fontSize: 20,
+                                                          fontSize: 22,
                                                           color: mainColor,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
                                                       ),
                                                     ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: DecoratedBox(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: mainColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 10,
-                                                                  right: 10,
-                                                                  top: 2,
-                                                                  bottom: 2),
-                                                          child: Text(
-                                                            currentEvent.time,
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 8.0),
+                                                      child: Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: DecoratedBox(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: mainColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    left: 10,
+                                                                    right: 10,
+                                                                    top: 2,
+                                                                    bottom: 2),
+                                                            child: Text(
+                                                              currentEvent.time,
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -371,6 +383,7 @@ class _EventState extends State<Event> {
                                                         currentEvent
                                                             .description,
                                                         style: const TextStyle(
+                                                          fontSize: 16,
                                                           color: Colors.white,
                                                         ),
                                                       ),

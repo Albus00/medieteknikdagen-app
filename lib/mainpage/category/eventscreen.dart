@@ -79,7 +79,7 @@ class EventScreen extends StatelessWidget {
                 }
               }),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -142,7 +142,7 @@ class EventScreen extends StatelessWidget {
                           return const SizedBox.shrink();
                         } else {
                           return Container(
-                            padding: const EdgeInsets.only(top: 10, bottom: 20),
+                            padding: const EdgeInsets.only(top: 10),
                             child: ElevatedButton(
                               onPressed: () => _launchUrl(url, urlNative),
                               style: ElevatedButton.styleFrom(

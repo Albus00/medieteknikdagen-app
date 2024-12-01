@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -251,7 +253,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: Colors.white,
+            color: backgroundVariantColor,
             boxShadow: [
               BoxShadow(
                 color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
@@ -262,7 +264,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ],
           ),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.09,
+            height: Platform.isAndroid
+                ? MediaQuery.of(context).size.height * 0.09
+                : MediaQuery.of(context).size.height * 0.1,
             child: CupertinoTabBar(
               //backgroundColor: mainColor,
               items: const <BottomNavigationBarItem>[

@@ -63,15 +63,16 @@ class _GoldHuntPageState extends State<GoldHuntPage> {
           height: double.infinity,
           color: darkGold,
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Bild ${documents.length - currentIndex} av ${documents.length}',
+                  'GULDJAKTEN',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24,
+                    fontSize: 42,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -98,16 +99,26 @@ class _GoldHuntPageState extends State<GoldHuntPage> {
                             ),
                           ),
                         )
-                      : CircularProgressIndicator(),
+                      : SizedBox(height: 448),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
+                Text(
+                  'Bild ${documents.length - currentIndex} av ${documents.length}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black, // Background color
                     foregroundColor: Colors.white, // Text color
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   ),
                   onPressed: previousImage,
-                  child: Text('BLÄDDRA'),
+                  child: Text('BLÄDDRA', style: TextStyle(fontSize: 16)),
                 ),
               ],
             ),

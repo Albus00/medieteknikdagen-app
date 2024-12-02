@@ -7,3 +7,4 @@ const backgroundVariantColor2 = Color.fromARGB(255, 37, 53, 68);
 const backgroundColor = Color.fromARGB(255, 19, 41, 61);
 const gold = Color.fromARGB(255, 241, 213, 143);
 const darkGold = Color.fromARGB(255, 216, 176, 74);
+const darkerGold = Color.fromARGB(255, 176, 137, 38);

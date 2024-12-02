@@ -256,27 +256,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           stream: FirebaseFirestore.instance.collection('GoldHunt').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-              return SizedBox(
-                width: 70,
-                height: 70,
-                child: FloatingActionButton(
-                  shape: const CircleBorder(),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => GoldHuntPage()),
-                    );
-                  },
-                  backgroundColor: Colors.black,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      "assets/custom_icons/mtd-tree.png",
-                      width: 60,
-                      height: 60,
-                      color: gold,
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 40.0),
+                child: SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: FloatingActionButton(
+                    shape: const CircleBorder(),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => GoldHuntPage()),
+                      );
+                    },
+                    backgroundColor: gold,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.4),
+                            Colors.transparent
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.6),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: Offset(0, 4), // Shadow position
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        "assets/custom_icons/mtd-tree.png",
+                        width: 70,
+                        height: 70,
+                        color: darkerGold,
+                      ),
                     ),
                   ),
                 ),

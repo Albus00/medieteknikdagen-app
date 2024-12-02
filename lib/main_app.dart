@@ -16,6 +16,7 @@ import '../icons/custom_app_icons.dart';
 
 import 'mainpage/category/events.dart';
 import 'mainpage/category/contactus.dart';
+import 'mainpage/goldhunt.dart';
 
 import 'package:mtd_app/models/companies_firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -249,6 +250,41 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('GoldHunt').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+              return SizedBox(
+                width: 70,
+                height: 70,
+                child: FloatingActionButton(
+                  shape: const CircleBorder(),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GoldHuntPage()),
+                    );
+                  },
+                  backgroundColor: Colors.black,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      "assets/custom_icons/mtd-tree.png",
+                      width: 60,
+                      height: 60,
+                      color: gold,
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return Container(); // Return an empty container if no data
+            }
+          },
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(

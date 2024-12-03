@@ -17,6 +17,7 @@ import '../icons/custom_app_icons.dart';
 import 'mainpage/category/events.dart';
 import 'mainpage/category/contactus.dart';
 import 'mainpage/goldhunt.dart';
+import 'mainpage/ticket.dart';
 
 import 'package:mtd_app/models/companies_firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -252,59 +253,100 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('GoldHunt').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 40.0),
-                child: SizedBox(
-                  width: 70,
-                  height: 70,
-                  child: FloatingActionButton(
-                    shape: const CircleBorder(),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => GoldHuntPage()),
-                      );
-                    },
-                    backgroundColor: gold,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white.withOpacity(0.4),
-                            Colors.transparent
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          stops: [0.0, 1.0],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.6),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(0, 4), // Shadow position
+        floatingActionButton: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('GoldHunt').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 120.0), // Adjust for overlap
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: FloatingActionButton(
+                        shape: const CircleBorder(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GoldHuntPage()),
+                          );
+                        },
+                        backgroundColor: gold,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.white.withOpacity(0.4),
+                                Colors.transparent
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [0.0, 1.0],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.6),
+                                spreadRadius: 1,
+                                blurRadius: 10,
+                                offset: Offset(0, 4), // Shadow position
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Image.asset(
-                        "assets/custom_icons/mtd-tree.png",
-                        width: 70,
-                        height: 70,
-                        color: darkerGold,
+                          child: Image.asset(
+                            "assets/custom_icons/mtd-tree.png",
+                            width: 70,
+                            height: 70,
+                            color: darkerGold,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              );
-            } else {
-              return Container(); // Return an empty container if no data
-            }
-          },
+                  );
+                } else {
+                  return Container(); // Return an empty container if no data
+                }
+              },
+            ),
+            StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('tickets').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 90.0),
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TicketsPage()),
+                          );
+                        },
+                        backgroundColor: mainColor, // Set your preferred color
+                        child: const Icon(
+                          Icons
+                              .airplane_ticket_rounded, // Replace with your preferred icon
+                          size: 35,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Container(); // Return an empty container if no data
+                }
+              },
+            ),
+          ],
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(

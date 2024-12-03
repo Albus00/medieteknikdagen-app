@@ -8,3 +8,5 @@ const backgroundColor = Color.fromARGB(255, 19, 41, 61);
 const gold = Color.fromARGB(255, 241, 213, 143);
 const darkGold = Color.fromARGB(255, 216, 176, 74);
 const darkerGold = Color.fromARGB(255, 176, 137, 38);
+const party1 = Color.fromARGB(255, 47, 92, 90);
+const party2 = Color.fromARGB(255, 28, 54, 53);

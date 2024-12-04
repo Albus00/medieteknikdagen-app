@@ -86,7 +86,7 @@ class _TicketsPageState extends State<TicketsPage> {
                     fontSize: 60,
                     height: 1,
                     fontWeight: FontWeight.bold,
-                    color: Colors.orange,
+                    color: mainColor,
                     shadows: [
                       Shadow(
                         offset: Offset(0, 0),
@@ -101,7 +101,7 @@ class _TicketsPageState extends State<TicketsPage> {
                       Shadow(
                         offset: Offset(0, 0),
                         blurRadius: 40.0,
-                        color: mainColor,
+                        color: Colors.orangeAccent,
                       ),
                     ],
                   ),
@@ -109,56 +109,56 @@ class _TicketsPageState extends State<TicketsPage> {
                 SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: AspectRatio(
-                    aspectRatio: 5 / 7, // Adjust the aspect ratio as needed
-                    child: Container(
-                      decoration: BoxDecoration(
-                        // borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 10.0,
-                            color: Colors.deepOrangeAccent,
-                          ),
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 20.0,
-                            color: Colors.orangeAccent,
-                          ),
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 40.0,
-                            color: mainColor,
-                          ),
-                        ],
-                      ),
-                      child: imageUrl != null
-                          ? ClipRRect(
-                              // borderRadius: BorderRadius.circular(40.0),
-                              child: Container(
-                                constraints: BoxConstraints(
-                                  minHeight:
-                                      300, // Set a reasonable minimum height
-                                  maxHeight:
-                                      500, // Optional max height for consistency
-                                ),
-                                child: Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Image.network(
-                                      imageUrl,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      fit: BoxFit
-                                          .cover, // Ensures the image covers the container
-                                    ),
-                                  ],
-                                ),
+                  child: imageUrl != null
+                      ? AspectRatio(
+                          aspectRatio:
+                              5 / 7, // Adjust the aspect ratio as needed
+                          child: Container(
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 0),
+                                    blurRadius: 10.0,
+                                    color: Colors.deepOrangeAccent,
+                                  ),
+                                  BoxShadow(
+                                    offset: Offset(0, 0),
+                                    blurRadius: 20.0,
+                                    color: Colors.orangeAccent,
+                                  ),
+                                  BoxShadow(
+                                    offset: Offset(0, 0),
+                                    blurRadius: 40.0,
+                                    color: mainColor,
+                                  ),
+                                ],
                               ),
-                            )
-                          : SizedBox(height: 300),
-                    ),
-                  ),
+                              child: ClipRRect(
+                                // borderRadius: BorderRadius.circular(40.0),
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    minHeight:
+                                        300, // Set a reasonable minimum height
+                                    maxHeight:
+                                        500, // Optional max height for consistency
+                                  ),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Image.network(
+                                        imageUrl,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        fit: BoxFit
+                                            .cover, // Ensures the image covers the container
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                        )
+                      : SizedBox(height: 300),
                 ),
               ],
             ),

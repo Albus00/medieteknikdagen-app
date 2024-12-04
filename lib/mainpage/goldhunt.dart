@@ -30,14 +30,6 @@ class _GoldHuntPageState extends State<GoldHuntPage> {
     });
   }
 
-  void nextImage() {
-    if (documents.isNotEmpty) {
-      setState(() {
-        currentIndex = (currentIndex + 1) % documents.length;
-      });
-    }
-  }
-
   void previousImage() {
     if (documents.isNotEmpty) {
       setState(() {
@@ -62,66 +54,84 @@ class _GoldHuntPageState extends State<GoldHuntPage> {
           width: double.infinity,
           height: double.infinity,
           color: darkGold,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'GULDJAKTEN',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                  ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'GULDJAKTEN',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 20),
-                Flexible(
-                  child: imageUrl != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(40.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Flexible(
+                    child: imageUrl != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(40.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit
+                                    .contain, // Ensures the image scales down to fit
+                              ),
+                            ),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(40.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.15),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 0),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            child: Image.network(
-                              imageUrl,
-                              fit: BoxFit
-                                  .contain, // Ensures the image scales down to fit
-                            ),
-                          ),
-                        )
-                      : SizedBox(height: 448),
+                                child: AspectRatio(
+                                  aspectRatio: 5 / 7,
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                  ),
+                                )),
+                          )),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Bild ${documents.length - currentIndex} av ${documents.length}',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Bild ${documents.length - currentIndex} av ${documents.length}',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black, // Background color
+                  foregroundColor: Colors.white, // Text color
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Background color
-                    foregroundColor: Colors.white, // Text color
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                  ),
-                  onPressed: previousImage,
-                  child: Text('BLÄDDRA', style: TextStyle(fontSize: 16)),
-                ),
-              ],
-            ),
+                onPressed: previousImage,
+                child: Text('BLÄDDRA', style: TextStyle(fontSize: 16)),
+              ),
+            ],
           ),
         ),
       ),

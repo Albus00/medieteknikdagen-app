@@ -263,7 +263,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                   return Padding(
                     padding: const EdgeInsets.only(
-                        bottom: 120.0), // Adjust for overlap
+                        bottom: 90.0), // Adjust for overlap
                     child: SizedBox(
                       width: 70,
                       height: 70,

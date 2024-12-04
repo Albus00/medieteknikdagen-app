@@ -297,7 +297,7 @@ class _EventState2 extends State<Event2> {
                                         image: currentEvent.image,
                                         url: currentEvent.url,
                                         urlNative: currentEvent.url_native,
-                                        linkText: currentEvent.link_text,
+                                        link_text: currentEvent.link_text,
                                       ),
                                     ),
                                   );

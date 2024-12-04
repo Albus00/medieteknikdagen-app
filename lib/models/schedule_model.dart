@@ -9,7 +9,7 @@ class Schedule {
   String image;
   String url;
   String urlNative;
-  String linkText;
+  String link_text;
 
   Schedule({
     this.title = "",
@@ -20,7 +20,7 @@ class Schedule {
     this.image = "",
     this.url = "",
     this.urlNative = "",
-    this.linkText = "",
+    this.link_text = "",
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
@@ -33,7 +33,7 @@ class Schedule {
       image: json['image'] ?? "",
       url: json['url'] ?? "",
       urlNative: json['urlNative'] ?? "",
-      linkText: json['linkText'] ?? "",
+      link_text: json['link_text'] ?? "",
     );
   }
 
@@ -47,7 +47,7 @@ class Schedule {
       'image': image,
       'url': url,
       'urlNative': urlNative,
-      'linkText': linkText,
+      'link_text': link_text,
     };
   }
 }

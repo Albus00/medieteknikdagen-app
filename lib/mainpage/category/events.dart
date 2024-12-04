@@ -20,7 +20,7 @@ class Events_preMTD {
   String image;
   String url;
   String urlNative;
-  String linkText;
+  String link_text;
 
   Events_preMTD({
     this.title = "",
@@ -31,7 +31,7 @@ class Events_preMTD {
     this.image = "",
     this.url = "",
     this.urlNative = "",
-    this.linkText = "",
+    this.link_text = "",
   });
 
   factory Events_preMTD.fromJson(Map<String, dynamic> json) {
@@ -44,7 +44,7 @@ class Events_preMTD {
       image: json['image'] ?? "",
       url: json['url'] ?? "",
       urlNative: json['urlNative'] ?? "",
-      linkText: json['linkText'] ?? "",
+      link_text: json['link_text'] ?? "",
     );
   }
 
@@ -58,7 +58,7 @@ class Events_preMTD {
       'image': image,
       'url': url,
       'urlNative': urlNative,
-      'linkText': linkText,
+      'link_text': link_text,
     };
   }
 }
@@ -248,7 +248,7 @@ class _EventState extends State<Event> {
                                             image: currentEvent.image,
                                             url: currentEvent.url,
                                             urlNative: currentEvent.url,
-                                            linkText: currentEvent.title,
+                                            link_text: currentEvent.link_text,
                                           ),
                                         ),
                                       );

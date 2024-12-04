@@ -15,7 +15,7 @@ class EventScreen extends StatelessWidget {
   String image;
   String url;
   String urlNative;
-  String linkText;
+  String link_text;
 
   EventScreen({
     super.key,
@@ -27,7 +27,7 @@ class EventScreen extends StatelessWidget {
     this.image = '',
     this.url = '',
     this.urlNative = "",
-    this.linkText = "",
+    this.link_text = "",
   });
 
   @override
@@ -138,7 +138,7 @@ class EventScreen extends StatelessWidget {
                         }
                       }),
                       LayoutBuilder(builder: (context, constraints) {
-                        if (linkText == "") {
+                        if (link_text == "") {
                           return const SizedBox.shrink();
                         } else {
                           return Container(
@@ -158,7 +158,7 @@ class EventScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              child: Text(linkText),
+                              child: Text(link_text),
                             ),
                           );
                         }

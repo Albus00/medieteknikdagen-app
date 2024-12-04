@@ -195,7 +195,7 @@ class _TestFrameViewer extends State<TestFrame> {
                               image: currentEvent.image,
                               url: currentEvent.url,
                               urlNative: currentEvent.urlNative,
-                              linkText: currentEvent.linkText,
+                              link_text: currentEvent.link_text,
                             ),
                           ),
                         );

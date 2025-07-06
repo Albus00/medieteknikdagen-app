@@ -1,8 +1,8 @@
-# 📱 Medieteknikdagen App
+# Medieteknikdagen App
 
 This is the official Flutter app for Medieteknikdagen – the career fair for media technology students at Linköping University. The app includes schedule info, company listings, a scavenger hunt, and QR ticket functionality.
 
-## ⚡ Quick Start
+## Quick Start
 
 To test the app locally, follow these steps:
 

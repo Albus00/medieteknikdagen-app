@@ -34,7 +34,7 @@ The app will now load on your emulator/device and you can begin testing right aw
 
 ---
 
-### ⚠️ Note!
+### Note!
 
 This is a simplified setup guide. Some packages may be outdated and you might need to:
 
